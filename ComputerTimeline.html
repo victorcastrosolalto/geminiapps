@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Cinco Generaciones de la Computación: Un Viaje Interactivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Vintage Tech -->
+    <!-- Application Structure Plan: The SPA uses a persistent top-level timeline navigation to allow non-linear exploration of the five computing generations. This is more user-friendly than a long linear scroll, providing context and quick access. Clicking a generation updates a central content area, which uses a multi-column layout to present text and key visuals separately for better readability. A final summary section provides a comparative view with a chart for quick analysis. This structure prioritizes user control and information synthesis over rigidly following the report's linear format. -->
+    <!-- Visualization & Content Choices: 1. Timeline Nav (HTML/CSS/JS): Goal: Organize. Interaction: Click to change view. Justification: Intuitive navigation for chronological data. 2. Key Tech Icons (HTML/CSS): Goal: Inform. Interaction: None. Justification: Simple, fast-loading visual cues without using SVG. 3. Moore's Law Chart (Chart.js): Goal: Change. Interaction: Hover tooltips. Justification: Visually demonstrates the exponential growth described in the text for Gen 3. 4. Generational Comparison Chart (Chart.js): Goal: Compare. Interaction: Hover tooltips. Justification: Provides a high-level, scannable visual summary of the key differences (size, power) across all eras, reinforcing the report's main theme of progress. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #383838;
+        }
+        .timeline-item {
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .timeline-item.active {
+            background-color: #A88B79;
+            color: #FDFBF8;
+        }
+        .timeline-item.active .timeline-dot {
+            background-color: #FDFBF8;
+            transform: scale(1.25);
+        }
+        .timeline-connector {
+            flex-grow: 1;
+            height: 2px;
+            background-color: #D3C5BC;
+        }
+        .timeline-dot {
+            transition: all 0.3s ease-in-out;
+        }
+        .content-card {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            will-change: opacity, transform;
+        }
+        .content-card.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            position: absolute;
+            pointer-events: none;
+        }
+        .tech-icon-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 120px;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 40vh;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="min-h-screen container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl font-bold text-[#A88B79] tracking-tight">Las Generaciones de la Computación</h1>
+            <p class="mt-4 max-w-3xl mx-auto text-lg text-gray-600">Un viaje desde calculadoras del tamaño de una habitación hasta la inteligencia artificial. Explore las cinco eras distintas que dieron forma al mundo moderno haciendo clic en la línea de tiempo a continuación.</p>
+        </header>
+
+        <nav id="timeline-nav" class="mb-12">
+            <div class="flex items-center">
+                <div class="timeline-connector"></div>
+                <div data-generation="1" class="timeline-item active flex-shrink-0 flex flex-col items-center text-center p-3 rounded-lg w-24 sm:w-32">
+                    <div class="timeline-dot h-4 w-4 bg-[#A88B79] rounded-full mb-1"></div>
+                    <span class="text-sm font-medium">1ª Gen</span>
+                </div>
+                <div class="timeline-connector"></div>
+                <div data-generation="2" class="timeline-item flex-shrink-0 flex flex-col items-center text-center p-3 rounded-lg w-24 sm:w-32">
+                    <div class="timeline-dot h-4 w-4 bg-[#A88B79] rounded-full mb-1"></div>
+                    <span class="text-sm font-medium">2ª Gen</span>
+                </div>
+                <div class="timeline-connector"></div>
+                <div data-generation="3" class="timeline-item flex-shrink-0 flex flex-col items-center text-center p-3 rounded-lg w-24 sm:w-32">
+                    <div class="timeline-dot h-4 w-4 bg-[#A88B79] rounded-full mb-1"></div>
+                    <span class="text-sm font-medium">3ª Gen</span>
+                </div>
+                <div class="timeline-connector"></div>
+                <div data-generation="4" class="timeline-item flex-shrink-0 flex flex-col items-center text-center p-3 rounded-lg w-24 sm:w-32">
+                    <div class="timeline-dot h-4 w-4 bg-[#A88B79] rounded-full mb-1"></div>
+                    <span class="text-sm font-medium">4ª Gen</span>
+                </div>
+                <div class="timeline-connector"></div>
+                <div data-generation="5" class="timeline-item flex-shrink-0 flex flex-col items-center text-center p-3 rounded-lg w-24 sm:w-32">
+                    <div class="timeline-dot h-4 w-4 bg-[#A88B79] rounded-full mb-1"></div>
+                    <span class="text-sm font-medium">5ª Gen</span>
+                </div>
+                <div class="timeline-connector"></div>
+                <div data-generation="summary" class="timeline-item flex-shrink-0 flex flex-col items-center text-center p-3 rounded-lg w-24 sm:w-32">
+                    <div class="timeline-dot h-4 w-4 bg-[#A88B79] rounded-full mb-1"></div>
+                    <span class="text-sm font-medium">Resumen</span>
+                </div>
+                <div class="timeline-connector"></div>
+            </div>
+        </nav>
+
+        <main id="content-area" class="relative">
+        </main>
+    </div>
+
+    <script>
+        const appData = {
+            1: {
+                title: 'Primera Generación (1940–1956): La Era de los Tubos de Vacío',
+                period: '1940–1956',
+                keyTech: 'Tubos de Vacío',
+                icon: '<div class="w-8 h-16 bg-gray-300 rounded-t-full border-2 border-gray-400 relative"><div class="absolute top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-yellow-300 rounded-full opacity-70"></div></div>',
+                intro: 'La tecnología fundacional de la primera generación de computadoras fue el tubo de vacío para los circuitos y el tambor magnético para la memoria. Eran máquinas masivas, del tamaño de una habitación, que sentaron las bases de toda la computación futura.',
+                description: "Las computadoras de esta era dependían de miles de delicados tubos de vacío, lo que las hacía enormes e inestables. Esta dependencia tenía consecuencias significativas: solo podían realizar una única tarea a la vez, generaban un calor inmenso y sufrían averías frecuentes a medida que los tubos se quemaban. La programación era un proceso increíblemente lento y difícil, ya que tenía que hacerse directamente en lenguaje de máquina, el código binario que las computadoras entienden en su nivel más básico.",
+                takeaway: "Aunque revolucionarias, estas máquinas eran gigantes imprácticos: lentos, poco fiables e increíblemente difíciles de programar, lo que creó una necesidad urgente de un reemplazo más pequeño y confiable para el tubo de vacío.",
+            },
+            2: {
+                title: 'Segunda Generación (1956–1963): La Revolución del Transistor',
+                period: '1956–1963',
+                keyTech: 'Transistores',
+                icon: '<div class="w-8 h-8 bg-gray-700 rounded-md flex flex-col justify-between p-1"><div class="w-1 h-3 bg-gray-400"></div><div class="w-1 h-3 bg-gray-400 self-center"></div><div class="w-1 h-3 bg-gray-400 self-end"></div></div>',
+                intro: 'El avance definitorio de la segunda generación fue el transistor, que reemplazó al voluminoso e ineficiente tubo de vacío. Este cambio aportó beneficios fundamentales que transformaron por completo la naturaleza de la computación.',
+                description: "Los transistores eran una fracción del tamaño de los tubos de vacío, lo que permitió que las computadoras se volvieran significativamente más pequeñas y rápidas. También eran mucho más duraderos y consumían menos energía, lo que mejoró enormemente la fiabilidad y redujo los costos operativos. Aunque la entrada todavía se gestionaba mediante tarjetas perforadas, esta generación vio la introducción del lenguaje ensamblador, lo que facilitó la programación. Además, comenzaron a desarrollarse lenguajes de programación de alto nivel tempranos como COBOL y FORTRAN.",
+                takeaway: "El transistor hizo que las computadoras fueran más pequeñas, rápidas y fiables. Este éxito llevó naturalmente a los ingenieros a la siguiente pregunta lógica: ¿cómo podrían estos nuevos componentes hacerse aún más pequeños y agruparse para una mayor eficiencia?",
+            },
+            3: {
+                title: 'Tercera Generación (1964–1971): El Circuito Integrado',
+                period: '1964–1971',
+                keyTech: 'Circuitos Integrados',
+                icon: '<div class="w-12 h-12 bg-gray-800 border-2 border-gray-600 grid grid-cols-3 gap-1 p-1"><div class="w-full h-full bg-yellow-500"></div><div class="w-full h-full bg-yellow-500"></div><div class="w-full h-full bg-yellow-500"></div><div class="w-full h-full bg-yellow-500"></div><div class="w-full h-full bg-gray-600"></div><div class="w-full h-full bg-yellow-500"></div><div class="w-full h-full bg-yellow-500"></div><div class="w-full h-full bg-yellow-500"></div><div class="w-full h-full bg-yellow-500"></div></div>',
+                intro: "El sello distintivo de esta generación fue el circuito integrado (CI). Esta innovación implicó miniaturizar transistores y colocarlos en chips de silicio, acelerando drásticamente el ritmo del progreso y acercando las computadoras a la experiencia del usuario moderno.",
+                description: "Con muchos transistores en un solo chip, las computadoras se volvieron aún más eficientes, fiables y rápidas. Por primera vez, las computadoras podían ejecutar múltiples aplicaciones a la vez (multitarea). La interacción del usuario también evolucionó, ya que las tarjetas perforadas fueron reemplazadas por teclados y ratones que interactuaban con un sistema operativo. Los lenguajes de alto nivel como FORTRAN, BASIC y COBOL se generalizaron.",
+                takeaway: "En 1965, Gordon Moore observó que el número de transistores en un CI se duplicaba aproximadamente cada dos años. Esta observación, conocida como la Ley de Moore, se convirtió en el principio rector de toda la industria.",
+                chart: 'mooresLaw',
+            },
+            4: {
+                title: 'Cuarta Generación (1971–2010): La Era del Microprocesador',
+                period: '1971–2010',
+                keyTech: 'Microprocesadores',
+                icon: '<div class="w-16 h-16 bg-green-900 border-4 border-gray-500 flex justify-center items-center"><div class="w-8 h-8 bg-gray-800"></div></div>',
+                intro: "La innovación clave de la cuarta generación fue el microprocesador, que vio miles de circuitos integrados construidos en un solo chip de silicio. Esta increíble hazaña de miniaturización hizo posible la computadora personal (PC).",
+                description: "Esta increíble densidad de potencia de procesamiento condujo al desarrollo de la PC. Los componentes centrales con los que estamos familiarizados hoy en día, como la placa base, la CPU, la RAM y las GPU, se introdujeron durante esta era. El advenimiento de la Interfaz Gráfica de Usuario (GUI) reemplazó los comandos complejos con iconos intuitivos, haciendo que las computadoras fueran accesibles al público en general para su uso en hogares y oficinas. Lenguajes de alto nivel influyentes como Python, C#, Java y JavaScript se crearon durante esta era.",
+                takeaway: "El microprocesador no solo hizo que las computadoras fueran más rápidas; las hizo personales. Por primera vez, la computación potente podía caber en un escritorio, lo que llevó a la adopción generalizada y a una revolución digital en la vida diaria.",
+            },
+            5: {
+                title: 'Quinta Generación (2010–Presente): Inteligencia Artificial y Más Allá',
+                period: '2010–Presente',
+                keyTech: 'Inteligencia Artificial',
+                icon: '<div class="text-6xl text-blue-400">🧠</div>',
+                intro: "La generación actual se define no por un nuevo tipo de circuito, sino por el concepto de Inteligencia Artificial (IA). Esta era se centra en crear dispositivos que puedan responder al lenguaje natural y que sean capaces de aprender y autoorganizarse.",
+                description: "El desarrollo de la IA es posible gracias a la convergencia de tecnologías avanzadas como superconductores, procesamiento paralelo, computación cuántica y nanotecnología. Un objetivo principal es crear computadoras que puedan comprender la entrada de lenguaje natural, como a través del reconocimiento de voz, y que sean capaces de aprender por sí mismas. Esto representa un cambio fundamental de las computadoras que simplemente ejecutan comandos a sistemas que pueden razonar, aprender y adaptarse.",
+                takeaway: "Esta generación marca un cambio fundamental de las computadoras que simplemente ejecutan comandos a sistemas inteligentes que pueden razonar, aprender, adaptarse e interactuar con humanos de una manera más natural.",
+            },
+            summary: {
+                title: 'La Evolución de un Vistazo',
+                intro: 'Este resumen proporciona una visión general rápida de los cambios tecnológicos clave y los impactos a lo largo de las cinco generaciones de la computación. El gráfico a continuación ofrece una comparación visual de su tamaño relativo y potencia computacional, ilustrando el progreso dramático a lo largo del tiempo.',
+                table: [
+                    { gen: '1ª', period: '1940–1956', tech: 'Tubos de Vacío', impact: 'Máquinas del tamaño de una habitación, de una sola tarea; difíciles de programar.' },
+                    { gen: '2ª', period: '1956–1963', tech: 'Transistores', impact: 'Más pequeñas, rápidas, más fiables y más eficientes energéticamente.' },
+                    { gen: '3ª', period: '1964–1971', tech: 'Circuitos Integrados', impact: 'Permitió la multitarea, sistemas operativos y lenguajes de alto nivel.' },
+                    { gen: '4ª', period: '1971–2010', tech: 'Microprocesadores', impact: 'Llevó a la computadora personal (PC) y la computación doméstica.' },
+                    { gen: '5ª', period: '2010–Presente', tech: 'Inteligencia Artificial', impact: 'Desarrollo de sistemas que pueden aprender, comprender y pensar.' },
+                ],
+                chart: 'comparison'
+            }
+        };
+
+        const contentArea = document.getElementById('content-area');
+        const timelineNav = document.getElementById('timeline-nav');
+        let currentGeneration = 1;
+        let charts = {};
+
+        const destroyCharts = () => {
+            Object.values(charts).forEach(chart => chart.destroy());
+            charts = {};
+        };
+
+        const renderGeneration = (genId) => {
+            destroyCharts();
+            contentArea.innerHTML = '';
+            const data = appData[genId];
+            let contentHtml = '';
+
+            if (genId === 'summary') {
+                const tableRows = data.table.map(row => `
+                    <tr class="border-b border-gray-200 hover:bg-stone-50">
+                        <td class="py-3 px-4 font-medium text-stone-700">${row.gen}</td>
+                        <td class="py-3 px-4 text-stone-600">${row.period}</td>
+                        <td class="py-3 px-4 text-stone-600">${row.tech}</td>
+                        <td class="py-3 px-4 text-stone-600">${row.impact}</td>
+                    </tr>
+                `).join('');
+
+                contentHtml = `
+                    <div id="content-${genId}" class="content-card bg-white/50 p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-2">${data.title}</h2>
+                        <p class="text-gray-600 mb-8">${data.intro}</p>
+                        <div class="overflow-x-auto mb-8">
+                            <table class="min-w-full text-sm text-left">
+                                <thead class="bg-stone-100">
+                                    <tr>
+                                        <th class="py-3 px-4 font-semibold text-stone-800">Generación</th>
+                                        <th class="py-3 px-4 font-semibold text-stone-800">Período de Tiempo</th>
+                                        <th class="py-3 px-4 font-semibold text-stone-800">Tecnología Clave</th>
+                                        <th class="py-3 px-4 font-semibold text-stone-800">Impacto Principal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${tableRows}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="comparisonChart"></canvas>
+                        </div>
+                    </div>
+                `;
+            } else {
+                 contentHtml = `
+                    <div id="content-${genId}" class="content-card bg-white/50 p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="md:col-span-2">
+                                <span class="text-sm font-semibold text-[#A88B79]">${data.period}</span>
+                                <h2 class="text-3xl font-bold text-gray-800 mt-1 mb-4">${data.title}</h2>
+                                <p class="text-gray-700 mb-6">${data.intro}</p>
+                                <p class="text-gray-600 leading-relaxed">${data.description}</p>
+                            </div>
+                            <div class="md:col-span-1">
+                                <div class="bg-stone-100 rounded-lg p-6 h-full">
+                                    <h3 class="font-bold text-lg text-stone-800 mb-2">Tecnología Clave</h3>
+                                    <p class="font-medium text-[#A88B79] mb-4">${data.keyTech}</p>
+                                    <div class="tech-icon-container mb-4">
+                                        ${data.icon}
+                                    </div>
+                                    <h3 class="font-bold text-lg text-stone-800 mb-2">Conclusión Principal</h3>
+                                    <p class="text-stone-600 text-sm">${data.takeaway}</p>
+                                </div>
+                            </div>
+                        </div>
+                        ${data.chart ? `<div class="mt-8 chart-container"><canvas id="${data.chart}Chart"></canvas></div>` : ''}
+                    </div>
+                `;
+            }
+            contentArea.innerHTML = contentHtml;
+
+            if (data.chart === 'mooresLaw') {
+                renderMooresLawChart();
+            } else if (data.chart === 'comparison') {
+                renderComparisonChart();
+            }
+        };
+
+        const renderMooresLawChart = () => {
+            const ctx = document.getElementById('mooresLawChart').getContext('2d');
+            charts.mooresLaw = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['1965', '1967', '1969', '1971', '1973', '1975', '1977', '1979', '1981'],
+                    datasets: [{
+                        label: 'Transistores en un CI (Conceptual)',
+                        data: [64, 256, 1024, 4096, 16384, 65536, 262144, 1048576, 4194304],
+                        borderColor: '#A88B79',
+                        backgroundColor: 'rgba(168, 139, 121, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            title: { display: true, text: 'Número de Transistores (Escala Log.)' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Año' }
+                        }
+                    },
+                    plugins: {
+                        title: { display: true, text: "Ley de Moore: Duplicación del Conteo de Transistores (Conceptual)" },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Transistores Est.: ${context.parsed.y.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        const renderComparisonChart = () => {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            charts.comparison = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['1ª Gen', '2ª Gen', '3ª Gen', '4ª Gen', '5ª Gen'],
+                    datasets: [{
+                        label: 'Tamaño Relativo (Mayor es más grande)',
+                        data: [10000, 500, 50, 1, 0.1],
+                        backgroundColor: 'rgba(168, 139, 121, 0.6)',
+                        borderColor: '#A88B79',
+                        borderWidth: 1
+                    }, {
+                        label: 'Potencia Relativa (Mayor es más potente)',
+                        data: [1, 100, 10000, 100000000, 100000000000],
+                        backgroundColor: 'rgba(100, 120, 150, 0.6)',
+                        borderColor: '#647896',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            type: 'logarithmic',
+                            title: { display: true, text: 'Unidades Relativas (Escala Log.)' }
+                        }
+                    },
+                    plugins: {
+                        title: { display: true, text: "Comparación Generacional: Tamaño vs. Potencia (Conceptual)" },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.parsed.y;
+                                    return `${label}: ${value.toLocaleString()}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        timelineNav.addEventListener('click', (e) => {
+            const targetItem = e.target.closest('.timeline-item');
+            if (targetItem && targetItem.dataset.generation) {
+                const newGen = targetItem.dataset.generation;
+                if (newGen !== currentGeneration) {
+                    document.querySelector('.timeline-item.active').classList.remove('active');
+                    targetItem.classList.add('active');
+                    
+                    const currentCard = document.querySelector('.content-card');
+                    if(currentCard) {
+                        currentCard.classList.add('hidden');
+                        setTimeout(() => {
+                           renderGeneration(newGen);
+                           currentGeneration = newGen;
+                        }, 300);
+                    } else {
+                        renderGeneration(newGen);
+                        currentGeneration = newGen;
+                    }
+                }
+            }
+        });
+        
+        window.addEventListener('load', () => {
+            renderGeneration(currentGeneration);
+        });
+    </script>
+</body>
+</html>
