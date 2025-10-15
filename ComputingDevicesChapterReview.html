@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Briefing on Computing Devices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Slate Blue -->
+    <!-- Application Structure Plan: The SPA uses a tabbed navigation structure to break the dense report into thematic, digestible sections: Overview, Device Types, Anatomy, and Evolution & Future. This non-linear approach enhances usability by allowing users to jump to topics of interest. The Overview section acts as a dashboard with key stats for immediate impact. Interactive elements like clickable cards for device types, a component diagram for anatomy, interactive charts for data trends, and a clickable timeline for computing generations are used to transform passive reading into active exploration, thereby improving user engagement and knowledge retention. -->
+    <!-- Visualization & Content Choices: 
+        - Executive Summary/Key Stats: Goal: Inform. Method: Styled HTML cards. Interaction: Static. Justification: Provide a high-level summary and impactful data points upfront.
+        - Device Taxonomy: Goal: Organize. Method: Interactive HTML/CSS cards. Interaction: Click to reveal details. Justification: Condenses a long list into a visually organized and interactive format.
+        - Internet Trends Data: Goal: Compare. Method: Two grouped Bar Charts (Chart.js). Interaction: Buttons to switch between metrics (Visits, Bounce Rate, etc.). Justification: Allows for direct, dynamic comparison of device usage metrics, which is the core of this section's data.
+        - Computer Anatomy: Goal: Organize/Relate. Method: HTML/CSS diagram. Interaction: Click component to see description. Justification: Visually demonstrates the relationship between core hardware components.
+        - Five Generations: Goal: Show Change. Method: Interactive HTML/CSS timeline. Interaction: Click a generation to view details. Justification: The most intuitive way to present historical progression.
+        - Malware/Environmental Stats: Goal: Inform. Method: Highlighted HTML stat boxes. Interaction: Subtle hover effects. Justification: Draws attention to significant figures without cluttering the UI.
+        - Quantum Computing: Goal: Inform. Method: Accordion-style expandable sections. Interaction: Click to expand. Justification: Breaks down a complex topic into smaller, manageable pieces.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active {
+            border-bottom-color: #4f46e5; /* indigo-600 */
+            color: #3730a3; /* indigo-800 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #cbd5e1; /* slate-300 */
+            border: 4px solid #f8fafc; /* slate-50 */
+        }
+        .timeline-item.active::before {
+             background-color: #4f46e5; /* indigo-600 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="min-h-screen">
+        <header class="bg-white shadow-sm sticky top-0 z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <h1 class="text-2xl font-bold text-slate-800">Computing Devices: An Interactive Briefing</h1>
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="#overview" class="nav-link active font-semibold text-slate-600 hover:text-indigo-600 py-2" data-section="overview">Overview</a>
+                        <a href="#device-types" class="nav-link font-semibold text-slate-600 hover:text-indigo-600 py-2" data-section="device-types">Device Types</a>
+                        <a href="#anatomy" class="nav-link font-semibold text-slate-600 hover:text-indigo-600 py-2" data-section="anatomy">Anatomy</a>
+                        <a href="#evolution-future" class="nav-link font-semibold text-slate-600 hover:text-indigo-600 py-2" data-section="evolution-future">Evolution & Future</a>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+            
+            <section id="overview" class="content-section active">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Executive Summary</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">This briefing analyzes computing devices, from their fundamental definition to their historical evolution and future trajectory. Explore the core concepts, key components, and transformative trends shaping the digital world.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md md:col-span-2 lg:col-span-3">
+                        <h3 class="font-bold text-xl text-slate-800 mb-2">The Core of Computing</h3>
+                        <p class="text-slate-600">A computer is a machine that executes instructions to perform specific tasks, operating on a model of input, processing, and output. These devices are ubiquitous, from embedded systems in appliances to personal computers and the large-scale mainframes and servers powering our infrastructure.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="font-bold text-xl text-slate-800 mb-2">Hardware & Software</h3>
+                        <p class="text-slate-600">The architecture of modern computers consists of two primary elements: physical hardware (CPU, RAM, storage) and instructional software (Operating Systems, applications). This synergy enables all computing functions.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center">
+                             <div class="text-4xl mr-4">💻</div>
+                             <div>
+                                <h3 class="font-bold text-3xl text-indigo-600">5 Generations</h3>
+                                <p class="text-slate-600">From vacuum tubes to AI, computing history is marked by transformative breakthroughs.</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="bg-white p-6 rounded-xl shadow-md">
+                        <div class="flex items-center">
+                           <div class="text-4xl mr-4">🛡️</div>
+                            <div>
+                                <h3 class="font-bold text-3xl text-red-600">5.6 Billion</h3>
+                                <p class="text-slate-600">Malware attacks recorded globally in 2020, highlighting a significant cybersecurity threat.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl shadow-md md:col-span-2 lg:col-span-3">
+                        <h3 class="font-bold text-xl text-slate-800 mb-2">Future Frontiers</h3>
+                        <p class="text-slate-600">Current trends show shifting internet access patterns, while challenges like the high energy consumption of data centers drive innovation. Emerging technologies like quantum computing promise to solve complex global problems, representing the next leap in the information age.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="device-types" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">A Taxonomy of Computing Devices</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Computers have diversified into numerous forms tailored for specific environments and purposes. Click on a category below to learn more about its various forms and functions.</p>
+                </div>
+                <div id="device-taxonomy-container" class="space-y-6">
+                </div>
+            </section>
+
+            <section id="anatomy" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Anatomy of a Computer</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">All computers operate on a model of input, processing, and output, achieved through a combination of physical hardware and instructional software. Interact with the diagram and tabs below to explore each component.</p>
+                </div>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-center mb-6 text-slate-800">Core Hardware Components</h3>
+                        <div class="relative max-w-xl mx-auto text-center">
+                            <div class="p-4 bg-indigo-100 text-indigo-800 rounded-lg font-bold">Motherboard</div>
+                            <div class="absolute w-px h-8 bg-slate-300 left-1/2 -top-8"></div>
+                            <div class="absolute w-px h-8 bg-slate-300 left-1/2 -bottom-8"></div>
+                            <div id="hardware-info" class="mt-16 p-4 bg-slate-50 rounded-lg min-h-[100px] text-left">
+                                <p class="text-slate-600">Click on a component above to see its description.</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 text-center">
+                            <button class="hardware-btn p-3 bg-slate-100 hover:bg-indigo-100 rounded-lg" data-component="cpu">CPU</button>
+                            <button class="hardware-btn p-3 bg-slate-100 hover:bg-indigo-100 rounded-lg" data-component="ram">RAM</button>
+                            <button class="hardware-btn p-3 bg-slate-100 hover:bg-indigo-100 rounded-lg" data-component="storage">Storage</button>
+                            <button class="hardware-btn p-3 bg-slate-100 hover:bg-indigo-100 rounded-lg" data-component="gpu">GPU/Sound</button>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-center mb-6 text-slate-800">Software</h3>
+                        <div id="software-accordion" class="space-y-3">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="evolution-future" class="content-section">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900">Evolution & The Next Frontier</h2>
+                    <p class="mt-4 max-w-3xl mx-auto text-lg text-slate-600">Explore the history of computing through its five distinct generations, analyze recent trends in how we access the internet, and look ahead to the transformative potential of quantum computing.</p>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md mb-12">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2 text-center">The Five Generations of Computing</h3>
+                    <p class="text-slate-600 mb-8 text-center max-w-2xl mx-auto">The history of computing is marked by a series of technological advancements. Click on each generation in the timeline to see its defining characteristics and key technologies.</p>
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3 relative">
+                            <div class="border-l-2 border-slate-300 absolute h-full top-0 left-[-1px]"></div>
+                            <div id="timeline-nav" class="space-y-4">
+                            </div>
+                        </div>
+                        <div id="timeline-content" class="md:w-2/3 bg-slate-50 p-6 rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-md mb-12">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2 text-center">Trends in Internet Access (2019-2020)</h3>
+                    <p class="text-slate-600 mb-8 text-center max-w-2xl mx-auto">Analysis of internet traffic reveals key trends in how different devices are used to access online content. Use the buttons to switch between different engagement metrics.</p>
+                    <div class="text-center mb-6">
+                        <div class="inline-flex rounded-md shadow-sm" role="group" id="metric-selector">
+                           <button type="button" data-metric="visits" class="metric-btn bg-indigo-600 text-white py-2 px-4 text-sm font-medium rounded-l-lg">Visits</button>
+                           <button type="button" data-metric="bounceRate" class="metric-btn bg-white text-slate-900 hover:bg-slate-100 py-2 px-4 text-sm font-medium">Bounce Rate</button>
+                           <button type="button" data-metric="pageViews" class="metric-btn bg-white text-slate-900 hover:bg-slate-100 py-2 px-4 text-sm font-medium">Page Views</button>
+                           <button type="button" data-metric="timeOnSite" class="metric-btn bg-white text-slate-900 hover:bg-slate-100 py-2 px-4 text-sm font-medium rounded-r-lg">Time on Site</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="internetTrendsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">The Next Frontier: Quantum Computing</h3>
+                        <div id="quantum-accordion" class="space-y-3"></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Broader Implications & Challenges</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-lg text-slate-700">Environmental Sustainability</h4>
+                                <p class="text-slate-600 mt-1">Data centers are major energy consumers, contributing over 2% of global carbon emissions. Innovations like Microsoft's underwater Project Natick explore more energy-efficient solutions.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg text-slate-700">Knowledge and Ethics</h4>
+                                <p class="text-slate-600 mt-1">The evolution of computers raises ethical questions about the responsibility of IT professionals and how technology can be used to either promote or restrict the availability of knowledge.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const contentData = {
+        deviceTaxonomy: [
+            {
+                category: "Embedded Computers",
+                description: "A specialized combination of hardware and software designed to perform a dedicated function within a larger electronic or mechanical system. Found in appliances, electronics, and automotive systems.",
+                subtypes: []
+            },
+            {
+                category: "Personal Computers (PC)",
+                description: "Designed for individual use, PCs entered the home market in the early 1980s and have evolved into several distinct form factors.",
+                subtypes: [
+                    { name: "Desktop Computers", detail: "The original PC, popular in corporate environments for ease of customization and security." },
+                    { name: "Laptops (Notebooks)", detail: "Offer power comparable to desktops with portability. Sales surpassed desktops by July 2005." },
+                    { name: "Tablets", detail: "Devices like the iPad, popular since 2010, filling a niche between laptops and phones." },
+                    { name: "Mobile/Smart Devices", detail: "Offer enhanced functionality like GPS but often have lower processing power and battery life." },
+                    { name: "Wearable Computers", detail: "Includes devices from the calculator watch (1975) to modern smartwatches and VR headsets." },
+                ]
+            },
+            {
+                category: "Mainframes and Servers",
+                description: "The largest and most powerful class of computers, designed to support extensive networks and large-scale business operations.",
+                subtypes: [
+                     { name: "Mainframe Computers", detail: "Used by businesses to host critical databases and applications, serving thousands of users simultaneously." },
+                     { name: "Servers", detail: "A computer dedicated to managing network resources, often grouped in server farms or data centers." },
+                ]
+            },
+        ],
+        hardware: {
+            cpu: { title: "Central Processing Unit (CPU)", desc: "Considered the 'brains' of the computer, it carries out and controls instructions. Performance is affected by clock speed, cache size, and number of cores." },
+            ram: { title: "Random Access Memory (RAM)", desc: "Short-term, volatile memory where data is stored temporarily while being actively processed or viewed." },
+            storage: { title: "Secondary Storage", desc: "Non-volatile, long-term memory used to store programs and data, like Hard Disk Drives (HDD) or Solid-State Drives (SSD)." },
+            gpu: { title: "Graphics Processing Unit (GPU) & Sound", desc: "A specialized circuit that accelerates the rendering of images and video. High-end cards are crucial for gaming and video editing." },
+        },
+        software: [
+            { title: "Operating System (OS)", content: "Foundational software that manages all hardware and software resources. Provides the user interface (UI). Examples: Windows, macOS, Linux, Android, iOS." },
+            { title: "Utility Software", content: "Programs designed for specific maintenance tasks, like file management, compression, and antivirus programs." },
+            { title: "Application Software", content: "Programs that serve a specific user purpose, such as a word processor, web browser, or video editor." },
+            { title: "Malicious Software (Malware)", content: "Software intended to steal data or damage systems. Includes viruses, spyware, and ransomware. There were 5.6 billion attacks worldwide in 2020." },
+        ],
+        generations: [
+            { period: "1940–1946", name: "First Generation", tech: "Vacuum Tubes", chars: "Used magnetic drums for memory. Performed one task at a time and generated significant heat.", langs: "Machine Language" },
+            { period: "1956–1963", name: "Second Generation", tech: "Transistors", chars: "Smaller, more reliable, and energy-efficient. Used punch cards for input.", langs: "Assembly, COBOL, FORTRAN" },
+            { period: "1964–1971", name: "Third Generation", tech: "Integrated Circuits", chars: "Transistors miniaturized on silicon chips, enabling multitasking. Keyboards and mice introduced.", langs: "FORTRAN, BASIC, COBOL, Pascal" },
+            { period: "1971–2010", name: "Fourth Generation", tech: "Microprocessors", chars: "Thousands of integrated circuits on a single chip. Rise of the PC with RAM, HDDs, and GUIs.", langs: "Python, C#, Java, JavaScript" },
+            { period: "2010–Present", name: "Fifth Generation", tech: "Artificial Intelligence", chars: "Focus on AI, parallel processing, quantum computing, and nanotechnology. Goal of natural language input.", langs: "N/A (paradigm-based)" },
+        ],
+        internetTrends: {
+            labels: ['Desktop', 'Mobile', 'Tablet'],
+            visits: { '2019': [32, 63, 5], '2020': [29, 38, 3], unit: '%' },
+            bounceRate: { '2019': [43.11, 53.49, 46.64], '2020': [41.69, 52.11, 46.82], unit: '%' },
+            pageViews: { '2019': [3.75, 2.68, 3.40], '2020': [3.95, 2.67, 3.21], unit: '' },
+            timeOnSite: { '2019': [313.99, 154.37, 227.03], '2020': [351.54, 160.13, 237.13], unit: ' sec' },
+        },
+        quantum: [
+            { title: "Core Concept", content: "Quantum computers use 'qubits' which can be a 0, 1, or both simultaneously (superposition). This allows them to analyze many possibilities at once, making them exceptionally efficient at solving certain complex problems." },
+            { title: "Potential Impact", content: "Projected to solve problems that would take today's most powerful supercomputers hundreds of years to complete." },
+            { title: "Applications", content: "Active R&D is underway in science (drug development), logistics (traffic optimization), finance (modeling), and technology (cybersecurity, AI)." },
+        ]
+    };
+    
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    function switchSection(targetId) {
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${targetId}`);
+        });
+        contentSections.forEach(section => {
+            section.classList.toggle('active', section.id === targetId);
+        });
+    }
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = e.target.dataset.section;
+            switchSection(targetId);
+            window.location.hash = targetId;
+        });
+    });
+
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+        switchSection(hash);
+    }
+
+    function initDeviceTaxonomy() {
+        const container = document.getElementById('device-taxonomy-container');
+        if (!container) return;
+        container.innerHTML = contentData.deviceTaxonomy.map(item => `
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <button class="w-full text-left p-6 focus:outline-none taxonomy-btn">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-slate-800">${item.category}</h3>
+                        <span class="transform transition-transform duration-300">▼</span>
+                    </div>
+                    <p class="text-slate-600 mt-2">${item.description}</p>
+                </button>
+                <div class="taxonomy-content hidden px-6 pb-6">
+                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                        ${item.subtypes.map(subtype => `<li><strong>${subtype.name}:</strong> ${subtype.detail}</li>`).join('')}
+                    </ul>
+                </div>
+            </div>
+        `).join('');
+
+        container.querySelectorAll('.taxonomy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                const arrow = button.querySelector('span');
+                content.classList.toggle('hidden');
+                arrow.classList.toggle('rotate-180');
+            });
+        });
+    }
+
+    function initAnatomy() {
+        const infoBox = document.getElementById('hardware-info');
+        const hardwareButtons = document.querySelectorAll('.hardware-btn');
+        if (!infoBox || !hardwareButtons.length) return;
+        
+        hardwareButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const componentKey = button.dataset.component;
+                const componentData = contentData.hardware[componentKey];
+                infoBox.innerHTML = `
+                    <h4 class="font-bold text-lg text-indigo-700">${componentData.title}</h4>
+                    <p class="text-slate-600 mt-1">${componentData.desc}</p>
+                `;
+            });
+        });
+
+        const softwareContainer = document.getElementById('software-accordion');
+        if (!softwareContainer) return;
+        softwareContainer.innerHTML = contentData.software.map(item => `
+            <div>
+                <button class="w-full text-left p-4 bg-slate-100 hover:bg-slate-200 rounded-lg focus:outline-none software-btn">
+                     <div class="flex justify-between items-center">
+                        <h4 class="font-semibold text-slate-700">${item.title}</h4>
+                        <span class="transform transition-transform duration-300 text-sm">▼</span>
+                    </div>
+                </button>
+                <div class="software-content hidden p-4">
+                    <p class="text-slate-600">${item.content}</p>
+                </div>
+            </div>
+        `).join('');
+
+        softwareContainer.querySelectorAll('.software-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.nextElementSibling.classList.toggle('hidden');
+                btn.querySelector('span').classList.toggle('rotate-180');
+            });
+        });
+    }
+
+    function initTimeline() {
+        const navContainer = document.getElementById('timeline-nav');
+        const contentContainer = document.getElementById('timeline-content');
+        if (!navContainer || !contentContainer) return;
+
+        navContainer.innerHTML = contentData.generations.map((gen, index) => `
+             <div class="pl-8 relative timeline-item ${index === 0 ? 'active' : ''}">
+                <button class="text-left w-full timeline-btn" data-index="${index}">
+                    <h4 class="font-bold text-lg text-slate-700">${gen.name}</h4>
+                    <p class="text-sm text-slate-500">${gen.period}</p>
+                </button>
+            </div>
+        `).join('');
+        
+        function updateTimelineContent(index) {
+            const gen = contentData.generations[index];
+            contentContainer.innerHTML = `
+                <h4 class="text-xl font-bold text-indigo-700">${gen.tech}</h4>
+                <p class="mt-2 text-slate-600"><strong>Characteristics:</strong> ${gen.chars}</p>
+                <p class="mt-2 text-slate-600"><strong>Programming Languages:</strong> ${gen.langs}</p>
+            `;
+            navContainer.querySelectorAll('.timeline-item').forEach((item, i) => {
+                item.classList.toggle('active', i == index);
+            });
+        }
+        
+        navContainer.querySelectorAll('.timeline-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateTimelineContent(btn.dataset.index));
+        });
+        
+        updateTimelineContent(0);
+    }
+    
+    let trendsChart = null;
+    function initInternetTrendsChart() {
+        const ctx = document.getElementById('internetTrendsChart');
+        if (!ctx) return;
+
+        const initialMetric = 'visits';
+        const chartData = contentData.internetTrends;
+
+        trendsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: chartData.labels,
+                datasets: [
+                    {
+                        label: '2019',
+                        data: chartData[initialMetric]['2019'],
+                        backgroundColor: 'rgba(129, 140, 248, 0.7)',
+                        borderColor: 'rgba(129, 140, 248, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '2020',
+                        data: chartData[initialMetric]['2020'],
+                        backgroundColor: 'rgba(79, 70, 229, 0.7)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return value + chartData[initialMetric].unit;
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += context.parsed.y + chartData[initialMetric].unit;
+                                }
+                                return label;
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Visits by Device',
+                        font: { size: 16 }
+                    }
+                }
+            }
+        });
+
+        document.getElementById('metric-selector').addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                const metric = e.target.dataset.metric;
+                updateTrendsChart(metric);
+                document.querySelectorAll('.metric-btn').forEach(btn => {
+                    btn.classList.remove('bg-indigo-600', 'text-white');
+                    btn.classList.add('bg-white', 'text-slate-900');
+                });
+                e.target.classList.add('bg-indigo-600', 'text-white');
+                e.target.classList.remove('bg-white', 'text-slate-900');
+            }
+        });
+    }
+
+    function updateTrendsChart(metric) {
+        if (!trendsChart) return;
+        const chartData = contentData.internetTrends;
+        trendsChart.data.datasets[0].data = chartData[metric]['2019'];
+        trendsChart.data.datasets[1].data = chartData[metric]['2020'];
+        trendsChart.options.scales.y.ticks.callback = function(value) { return value + chartData[metric].unit; };
+        trendsChart.options.plugins.tooltip.callbacks.label = function(context) {
+            let label = context.dataset.label || '';
+            if (label) { label += ': '; }
+            if (context.parsed.y !== null) { label += context.parsed.y + chartData[metric].unit; }
+            return label;
+        };
+        const titleText = metric.charAt(0).toUpperCase() + metric.slice(1).replace(/([A-Z])/g, ' $1');
+        trendsChart.options.plugins.title.text = `${titleText} by Device`;
+        trendsChart.update();
+    }
+    
+    function initQuantumAccordion() {
+        const container = document.getElementById('quantum-accordion');
+        if (!container) return;
+        container.innerHTML = contentData.quantum.map(item => `
+            <div>
+                <button class="w-full text-left p-4 bg-slate-100 hover:bg-slate-200 rounded-lg focus:outline-none quantum-btn">
+                     <div class="flex justify-between items-center">
+                        <h4 class="font-semibold text-slate-700">${item.title}</h4>
+                        <span class="transform transition-transform duration-300 text-sm">▼</span>
+                    </div>
+                </button>
+                <div class="quantum-content hidden p-4">
+                    <p class="text-slate-600">${item.content}</p>
+                </div>
+            </div>
+        `).join('');
+
+        container.querySelectorAll('.quantum-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.nextElementSibling.classList.toggle('hidden');
+                btn.querySelector('span').classList.toggle('rotate-180');
+            });
+        });
+    }
+
+    initDeviceTaxonomy();
+    initAnatomy();
+    initTimeline();
+    initInternetTrendsChart();
+    initQuantumAccordion();
+});
+</script>
+</body>
+</html>
