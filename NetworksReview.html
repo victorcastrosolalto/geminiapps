@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Interactivo: Redes Informáticas e Internet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: Se ha diseñado una SPA (Single Page Application) con una barra de navegación fija superior que permite el desplazamiento suave a secciones temáticas. Esta estructura, a diferencia del documento lineal, fomenta la exploración no secuencial y agrupa lógicamente los conceptos. Las secciones son: 1) Resumen, 2) Tipos de Redes (interactivo para comparar clasificaciones), 3) Arquitectura (con diagramas visuales), 4) Evolución de la Web (una línea de tiempo interactiva) y 5) Seguridad y Amenazas (con gráficos de datos). Esta arquitectura se eligió para transformar un documento denso en una experiencia de aprendizaje atractiva y digerible, donde el usuario controla el flujo de información. -->
+    <!-- Visualization & Content Choices: Resumen Ejecutivo -> Informar -> Bloque de texto -> Estático -> Claridad inicial -> HTML/CSS. Tipos de Redes -> Organizar/Comparar -> Pestañas interactivas con tarjetas -> Click para cambiar de vista -> Facilita la comparación directa sin scroll -> JS. Modelo de 4 Capas -> Organizar -> Diagrama de flujo vertical -> Estático/Hover -> Visualiza la jerarquía -> HTML/CSS/Tailwind. Evolución Web -> Mostrar Cambio -> Línea de tiempo horizontal -> Click en hitos -> Muestra el progreso cronológico -> JS. Amenazas (Spam, Costos) -> Informar/Comparar -> Gráfico de dona y barras -> Interactivos (Tooltips) -> Cuantifica el impacto de forma visual y rápida -> Chart.js/Canvas. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf7;
+            color: #333;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #0891b2;
+            border-bottom-color: #0891b2;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl font-bold text-cyan-700">Redes Informáticas</h1>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#resumen" class="nav-link pb-1">Resumen</a>
+                    <a href="#tipos" class="nav-link pb-1">Tipos de Redes</a>
+                    <a href="#arquitectura" class="nav-link pb-1">Arquitectura</a>
+                    <a href="#evolucion" class="nav-link pb-1">Evolución</a>
+                    <a href="#seguridad" class="nav-link pb-1">Seguridad</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-3">
+                <a href="#resumen" class="block py-2 px-3 text-sm text-gray-700 hover:bg-cyan-50 rounded-md">Resumen</a>
+                <a href="#tipos" class="block py-2 px-3 text-sm text-gray-700 hover:bg-cyan-50 rounded-md">Tipos de Redes</a>
+                <a href="#arquitectura" class="block py-2 px-3 text-sm text-gray-700 hover:bg-cyan-50 rounded-md">Arquitectura</a>
+                <a href="#evolucion" class="block py-2 px-3 text-sm text-gray-700 hover:bg-cyan-50 rounded-md">Evolución</a>
+                <a href="#seguridad" class="block py-2 px-3 text-sm text-gray-700 hover:bg-cyan-50 rounded-md">Seguridad</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="resumen" class="min-h-[60vh] flex items-center">
+            <div class="w-full">
+                <h2 class="text-4xl md:text-5xl font-bold text-cyan-800 mb-4 tracking-tight">Explorando el Mundo de las Redes e Internet</h2>
+                <p class="text-lg text-gray-600 max-w-3xl">
+                    Las redes informáticas, y en especial Internet, son la columna vertebral de nuestra sociedad digital. Definen cómo creamos, compartimos y accedemos a la información. Esta aplicación interactiva desglosa los conceptos fundamentales, la evolución y los desafíos de seguridad del mundo interconectado en el que vivimos, transformando un informe complejo en una experiencia visual y comprensible.
+                </p>
+            </div>
+        </section>
+
+        <section id="tipos" class="py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Fundamentos y Tipos de Redes</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Una red es una serie de nodos interconectados para intercambiar datos. Se pueden clasificar de diversas maneras según su propósito y diseño. Utilice los botones para explorar las diferentes categorías y comprender cómo se estructuran y funcionan las redes a nuestro alrededor.</p>
+            </div>
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-center border-b border-gray-200 mb-8">
+                    <button data-tab="geografia" class="tab-button flex-1 py-3 px-4 text-center font-semibold text-cyan-700 border-b-2 border-cyan-700">Por Escala Geográfica</button>
+                    <button data-tab="conectividad" class="tab-button flex-1 py-3 px-4 text-center font-semibold text-gray-500">Por Conectividad</button>
+                    <button data-tab="arquitectura" class="tab-button flex-1 py-3 px-4 text-center font-semibold text-gray-500">Por Arquitectura de Datos</button>
+                </div>
+
+                <div id="geografia" class="tab-content">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="card p-6 text-center">
+                            <h3 class="font-bold text-xl mb-2 text-cyan-800">PAN</h3>
+                            <p class="text-gray-600 text-sm">Red de Área Personal. Conecta dispositivos cercanos a un individuo, como un smartphone y un smartwatch.</p>
+                        </div>
+                        <div class="card p-6 text-center">
+                            <h3 class="font-bold text-xl mb-2 text-cyan-800">LAN</h3>
+                            <p class="text-gray-600 text-sm">Red de Área Local. Conecta dispositivos en un solo sitio, como una casa, escuela u oficina.</p>
+                        </div>
+                        <div class="card p-6 text-center">
+                            <h3 class="font-bold text-xl mb-2 text-cyan-800">MAN</h3>
+                            <p class="text-gray-600 text-sm">Red de Área Metropolitana. Cubre un área más grande, como una ciudad, conectando diferentes edificios.</p>
+                        </div>
+                        <div class="card p-6 text-center">
+                            <h3 class="font-bold text-xl mb-2 text-cyan-800">WAN</h3>
+                            <p class="text-gray-600 text-sm">Red de Área Amplia. Se extiende por una gran área geográfica, como un país. Internet es la WAN más grande.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="conectividad" class="tab-content hidden">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="card p-6">
+                            <h3 class="font-bold text-lg mb-2">Redes Cableadas</h3>
+                            <p class="text-gray-600">Usan cables (Ethernet, fibra óptica) para una conexión física. Son preferidas por su fiabilidad, velocidad y seguridad.</p>
+                        </div>
+                        <div class="card p-6">
+                            <h3 class="font-bold text-lg mb-2">Redes Inalámbricas</h3>
+                            <p class="text-gray-600">Utilizan Wi-Fi y señales de radio. Ofrecen flexibilidad y facilidad de instalación sin necesidad de cableado extensivo.</p>
+                        </div>
+                        <div class="card p-6">
+                            <h3 class="font-bold text-lg mb-2">Redes en la Nube</h3>
+                            <p class="text-gray-600">Las capacidades de red se alojan en una plataforma en la nube, facilitando la implementación, reduciendo costos y permitiendo la escalabilidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="arquitectura" class="tab-content hidden">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="card p-6">
+                            <h3 class="font-bold text-lg mb-2">Cliente-Servidor</h3>
+                            <p class="text-gray-600">Los datos se almacenan en un servidor central. Los clientes solicitan acceso a estos datos, permitiendo una gestión y seguridad centralizadas.</p>
+                        </div>
+                        <div class="card p-6">
+                            <h3 class="font-bold text-lg mb-2">Par-a-Par (P2P)</h3>
+                            <p class="text-gray-600">Modelo descentralizado donde cada computadora es igual. Es resistente y fácil de configurar, popular para compartir archivos y criptomonedas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="arquitectura" class="py-16 bg-white rounded-2xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Arquitectura y Protocolos de Red</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Para que miles de millones de dispositivos se comuniquen, necesitan un lenguaje y una estructura comunes. Esta sección explora los componentes de hardware esenciales y los protocolos estandarizados, como el modelo TCP/IP, que hacen posible la interoperabilidad global.</p>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-800">Modelo de Comunicación de 4 Capas</h3>
+                    <div class="relative pl-8">
+                        <div class="absolute left-3.5 top-0 bottom-0 w-1 bg-cyan-200 rounded-full"></div>
+                        <div class="relative mb-6">
+                            <div class="absolute -left-5 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-600 rounded-full border-2 border-white"></div>
+                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm">
+                                <h4 class="font-bold">Capa de Aplicación</h4>
+                                <p class="text-sm text-gray-600">Protocolos para aplicaciones como navegadores web (HTTP).</p>
+                            </div>
+                        </div>
+                        <div class="relative mb-6">
+                            <div class="absolute -left-5 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-600 rounded-full border-2 border-white"></div>
+                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm">
+                                <h4 class="font-bold">Capa de Transporte</h4>
+                                <p class="text-sm text-gray-600">Establece la comunicación entre hosts (TCP).</p>
+                            </div>
+                        </div>
+                        <div class="relative mb-6">
+                            <div class="absolute -left-5 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-600 rounded-full border-2 border-white"></div>
+                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm">
+                                <h4 class="font-bold">Capa de Internet</h4>
+                                <p class="text-sm text-gray-600">Añade direcciones IP para enrutar paquetes.</p>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute -left-5 top-1/2 -translate-y-1/2 w-4 h-4 bg-cyan-600 rounded-full border-2 border-white"></div>
+                            <div class="bg-cyan-50 p-4 rounded-lg shadow-sm">
+                                <h4 class="font-bold">Capa de Red Física</h4>
+                                <p class="text-sm text-gray-600">Gobierna la comunicación del hardware físico (Ethernet).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-cyan-800">Componentes de Hardware Centrales</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="card p-4"><strong class="text-cyan-700">Router:</strong> Transfiere datos entre redes.</div>
+                        <div class="card p-4"><strong class="text-cyan-700">Módem:</strong> Convierte señales digitales/analógicas.</div>
+                        <div class="card p-4"><strong class="text-cyan-700">Switch:</strong> Dirige datos a un dispositivo específico en una LAN.</div>
+                        <div class="card p-4"><strong class="text-cyan-700">NIC:</strong> Permite que un dispositivo se conecte a la red.</div>
+                        <div class="card p-4"><strong class="text-cyan-700">WAP:</strong> Crea una red local inalámbrica.</div>
+                        <div class="card p-4"><strong class="text-cyan-700">DNS:</strong> Traduce nombres de dominio a direcciones IP.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="evolucion" class="py-16">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-800">La Evolución de la Web</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">La World Wide Web no es lo mismo que Internet; es la colección de sitios y servicios a los que accedemos a través de él. Su desarrollo ha pasado por fases transformadoras. Esta línea de tiempo interactiva destaca los cambios clave desde una web estática a la web inteligente e interconectada de hoy.</p>
+            </div>
+            <div class="relative w-full">
+                <div class="hidden md:block absolute top-1/2 -translate-y-1/2 left-0 w-full h-1 bg-gray-200"></div>
+                <div class="relative flex flex-col md:flex-row justify-between w-full max-w-5xl mx-auto">
+                    <div class="timeline-item flex-1 md:text-center p-4">
+                        <div class="timeline-dot relative w-6 h-6 bg-white border-4 border-cyan-600 rounded-full mx-auto md:mb-4"></div>
+                        <div class="mt-4 md:mt-0">
+                            <h3 class="font-bold text-lg">Web 1.0</h3>
+                            <p class="text-sm text-gray-600">La web inicial, con sitios estáticos. El contenido era creado por expertos y consumido por las masas. (~1990-2000)</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item flex-1 md:text-center p-4">
+                        <div class="timeline-dot relative w-6 h-6 bg-white border-4 border-cyan-600 rounded-full mx-auto md:mb-4"></div>
+                        <div class="mt-4 md:mt-0">
+                            <h3 class="font-bold text-lg">Web 2.0</h3>
+                            <p class="text-sm text-gray-600">La web social. Los usuarios comenzaron a generar su propio contenido a través de blogs, wikis y redes sociales. (2000–2020)</p>
+                        </div>
+                    </div>
+                     <div class="timeline-item flex-1 md:text-center p-4">
+                        <div class="timeline-dot relative w-6 h-6 bg-white border-4 border-cyan-600 rounded-full mx-auto md:mb-4"></div>
+                        <div class="mt-4 md:mt-0">
+                            <h3 class="font-bold text-lg">Web 3.0</h3>
+                            <p class="text-sm text-gray-600">La web semántica o inteligente. Utiliza IA y es la base del Internet de las Cosas (IoT), creando un entorno más autónomo. (2020–presente)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="seguridad" class="py-16 bg-white rounded-2xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800">Seguridad y Dilemas del Mundo Conectado</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">La interconexión global trae consigo enormes beneficios, pero también riesgos significativos y dilemas éticos. Desde ciberataques que cuestan miles de millones hasta debates sobre privacidad y vigilancia, esta sección visualiza la escala de las amenazas y los desafíos sociales que enfrentamos.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-2 text-cyan-800">Tráfico Global de Correo no Deseado (Spam)</h3>
+                    <p class="text-sm text-gray-600 mb-4">En marzo de 2021, casi la mitad de todo el tráfico de correo electrónico fue spam, una puerta de entrada común para estafas y malware.</p>
+                    <div class="chart-container">
+                        <canvas id="spamChart"></canvas>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h3 class="text-xl font-semibold mb-2 text-cyan-800">Impacto Económico de Ciberataques</h3>
+                    <p class="text-sm text-gray-600 mb-4">El ransomware y el robo de identidad tienen costos devastadores para individuos y organizaciones a nivel mundial.</p>
+                     <div class="chart-container">
+                        <canvas id="impactChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16">
+                 <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Amenazas Principales y Consecuencias Sociales</h3>
+                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                     <div class="card p-6">
+                        <h4 class="font-bold text-lg mb-2 text-cyan-800">Hacking y Ransomware</h4>
+                        <p class="text-gray-600">Acceso no autorizado y secuestro de datos. El ataque WannaCry de 2017 causó pérdidas estimadas de 4 mil millones de dólares.</p>
+                     </div>
+                     <div class="card p-6">
+                        <h4 class="font-bold text-lg mb-2 text-cyan-800">Ataques DDoS</h4>
+                        <p class="text-gray-600">Sobrecarga de servidores para dejarlos fuera de servicio, como el ataque a Amazon Web Services en 2020.</p>
+                     </div>
+                      <div class="card p-6">
+                        <h4 class="font-bold text-lg mb-2 text-cyan-800">Robo de Identidad</h4>
+                        <p class="text-gray-600">En 2020, costó a los consumidores estadounidenses 56 mil millones de dólares y afectó a 49 millones de personas.</p>
+                     </div>
+                      <div class="card p-6">
+                        <h4 class="font-bold text-lg mb-2 text-cyan-800">Anonimato y Acoso</h4>
+                        <p class="text-gray-600">Facilita la libre expresión, pero también el ciberacoso y el trolling, con costos sociales y económicos significativos.</p>
+                     </div>
+                     <div class="card p-6">
+                        <h4 class="font-bold text-lg mb-2 text-cyan-800">El Auge de la Vigilancia</h4>
+                        <p class="text-gray-600">El monitoreo a través de CCTV, drones y dispositivos inteligentes plantea continuas preocupaciones sobre la privacidad y las libertades civiles.</p>
+                     </div>
+                      <div class="card p-6">
+                        <h4 class="font-bold text-lg mb-2 text-cyan-800">Derecho al Olvido</h4>
+                        <p class="text-gray-600">Principio legal que permite a los individuos solicitar la eliminación de sus datos personales, un punto clave en la soberanía de datos.</p>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 Panel Interactivo de Redes Informáticas. Creado para visualizar y simplificar información compleja.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tab = button.dataset.tab;
+                    
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('text-cyan-700', 'border-cyan-700');
+                        btn.classList.add('text-gray-500');
+                    });
+                    button.classList.add('text-cyan-700', 'border-cyan-700');
+                    button.classList.remove('text-gray-500');
+
+                    tabContents.forEach(content => {
+                        if (content.id === tab) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const spamCtx = document.getElementById('spamChart')?.getContext('2d');
+            if (spamCtx) {
+                new Chart(spamCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Spam', 'Correo Legítimo'],
+                        datasets: [{
+                            label: 'Tráfico de Email (Mar 2021)',
+                            data: [45, 55],
+                            backgroundColor: ['#0891b2', '#a5f3fc'],
+                            borderColor: ['#06b6d4', '#cffafe'],
+                            borderWidth: 1,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            const impactCtx = document.getElementById('impactChart')?.getContext('2d');
+            if(impactCtx) {
+                new Chart(impactCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Ransomware (WannaCry, 2017)', 'Robo de Identidad (EE.UU., 2020)'],
+                        datasets: [{
+                            label: 'Costos Estimados (en miles de millones de USD)',
+                            data: [4, 56],
+                            backgroundColor: ['#0e7490', '#67e8f9'],
+                            borderColor: ['#0e7490', '#67e8f9'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + value + 'B';
+                                    }
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                             tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Costo: $${context.raw} mil millones`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
