@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medios Digitales: Evolución y Dilemas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Calm Tech -->
+    <!-- Application Structure Plan: The application is structured as a non-linear, thematic single-page application (SPA) with a sticky sidebar navigation. This design was chosen over a simple linear scroll to empower users to explore topics based on their interest, promoting better engagement and comprehension. The core themes of the report—Evolution, Characteristics, Immersive Future, and Societal Dilemmas—are broken into distinct, interactive sections. This architecture transforms the static report into a dynamic dashboard, where users can actively reveal information through timelines, interactive cards, and data visualizations, making the complex information more digestible and memorable. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Web 1.0/2.0/3.0 Evolution -> Goal: Show Change -> Viz/Method: Interactive Timeline -> Interaction: Click stage to show details -> Justification: Intuitive way to visualize historical progression without overwhelming the user. (Method: JS)
+        - Report Info: Key Characteristics -> Goal: Organize -> Viz/Method: Interactive Icon Grid -> Interaction: Click card to reveal description -> Justification: A clean, scannable way to present distinct concepts, encouraging exploration. (Method: HTML/CSS/JS)
+        - Report Info: Immersive Tech (VR/AR/MR) -> Goal: Organize/Compare -> Viz/Method: Tabbed Interface -> Interaction: Click tab to switch content -> Justification: Standard UI pattern for segmenting related but distinct topics efficiently. (Method: JS)
+        - Report Info: Psychological Impacts -> Goal: Inform/Compare -> Viz/Method: Bar Chart -> Interaction: Hover tooltips -> Justification: Clearly visualizes the scale of negative outcomes for quick comparison. (Library: Chart.js)
+        - Report Info: Media Authenticity stats -> Goal: Inform -> Viz/Method: Donut Chart -> Interaction: Static stat display -> Justification: Highlights a single, powerful statistic (deepfake count) in a visually engaging format. (Library: Chart.js)
+        - Report Info: Copyright vs Copyleft -> Goal: Compare -> Viz/Method: Toggle Buttons -> Interaction: Click to switch views -> Justification: Allows for direct, in-place comparison of two opposing concepts. (Method: JS)
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #4a4a4a;
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0d9488;
+            background-color: #ecfdf5;
+            transform: translateX(4px);
+        }
+        .card {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+        .tab.active {
+            border-color: #0d9488;
+            color: #0d9488;
+            background-color: #ffffff;
+        }
+        .timeline-item.active {
+            border-color: #0d9488;
+        }
+        .timeline-item.active .timeline-dot {
+            background-color: #0d9488;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="relative min-h-screen md:flex">
+        <aside class="sticky top-0 h-screen bg-white shadow-md w-full md:w-64 hidden md:block">
+            <div class="p-6">
+                <h1 class="text-xl font-bold text-teal-700">Medios Digitales</h1>
+                <p class="text-sm text-gray-500">Un Reporte Interactivo</p>
+            </div>
+            <nav id="desktop-nav" class="flex flex-col p-4 space-y-2">
+            </nav>
+        </aside>
+
+        <main class="flex-1 p-4 sm:p-6 lg:p-10">
+            <header id="header" class="mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-800 leading-tight">El Paisaje de los Medios Digitales</h1>
+                <p class="mt-4 text-lg text-gray-600 max-w-3xl">Los medios digitales, la convergencia de la informática, la comunicación y el contenido, han remodelado fundamentalmente la sociedad. Esta experiencia interactiva explora su evolución desde páginas web simples a un mundo impulsado por IA, sus características principales y los dilemas sociales críticos que presenta.</p>
+            </header>
+
+            <section id="evolution" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">La Evolución de los Medios</h2>
+                <p class="text-gray-600 mb-8 max-w-3xl">Del consumo pasivo al contenido generado por el usuario y la personalización impulsada por IA, el viaje de la web ha sido transformador. Esta sección explora las etapas clave del crecimiento de los medios digitales y su impacto en cómo creamos y consumimos información. Haz clic en cada era para saber más.</p>
+                <div class="flex flex-col md:flex-row gap-8">
+                    <div id="timeline-nav" class="flex md:flex-col justify-around md:justify-start md:space-y-4 md:border-l-2 border-gray-200">
+                    </div>
+                    <div id="evolution-content" class="flex-1 bg-white p-6 rounded-lg shadow-sm min-h-[300px]">
+                    </div>
+                </div>
+            </section>
+
+            <section id="characteristics" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Características Clave</h2>
+                 <p class="text-gray-600 mb-8 max-w-3xl">Los medios digitales se definen por un conjunto único de características que los diferencian de los medios tradicionales, permitiendo su velocidad y escala sin precedentes. Explora las características principales que sustentan el mundo digital actual haciendo clic en cada tarjeta.</p>
+                <div id="characteristics-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                </div>
+            </section>
+             <div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-50 hidden z-40"></div>
+             <div id="modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-2xl p-6 w-11/12 max-w-md hidden z-50">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 id="modal-title" class="text-xl font-bold text-teal-700"></h3>
+                    <button id="modal-close" class="text-gray-500 hover:text-gray-800">&times;</button>
+                </div>
+                <p id="modal-content" class="text-gray-600"></p>
+            </div>
+
+            <section id="immersive" class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">La Frontera Inmersiva</h2>
+                <p class="text-gray-600 mb-8 max-w-3xl">Más allá de la pantalla, los medios digitales están evolucionando para crear experiencias inmersivas que simulan la vida virtual. Desde la capacitación y el marketing hasta las operaciones, estas tecnologías están revolucionando las industrias. Selecciona una tecnología a continuación para ver cómo se está aplicando.</p>
+                <div>
+                    <div class="border-b border-gray-200">
+                        <nav id="immersive-tabs" class="-mb-px flex space-x-6" aria-label="Tabs">
+                        </nav>
+                    </div>
+                    <div id="immersive-content" class="mt-8">
+                    </div>
+                </div>
+            </section>
+
+            <section id="dilemmas" class="scroll-mt-20">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Dilemas Sociales Críticos</h2>
+                <p class="text-gray-600 mb-8 max-w-3xl">La rápida proliferación de los medios digitales trae consigo desafíos complejos. Esta sección profundiza en los problemas importantes que enfrentan los individuos y la sociedad, desde los impactos psicológicos y la transformación del periodismo hasta las preocupaciones sobre la autenticidad, la propiedad y la censura.</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card bg-white p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Impactos Psicológicos y Sociales</h3>
+                        <p class="text-gray-600 mb-4">El uso excesivo de las redes sociales está relacionado con la adicción conductual, impulsada por "golpes de dopamina". Esto puede llevar a resultados negativos significativos, que se visualizan a continuación.</p>
+                        <div class="chart-container">
+                            <canvas id="psychologicalImpactsChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">El Desafío de la Autenticidad de los Medios</h3>
+                        <p class="text-gray-600 mb-4">Verificar los medios digitales es cada vez más difícil. Las noticias falsas (fake news) se difunden más rápido que las reales, evocando emociones fuertes. El auge de la tecnología deepfake amenaza aún más la autenticidad.</p>
+                         <div class="flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <p class="text-6xl font-bold text-teal-600">~8,000</p>
+                                <p class="text-gray-600 mt-2">Videos deepfake encontrados en línea en un informe de 2019, con predicciones de un aumento significativo.</p>
+                                <div class="mt-4 text-sm text-left bg-gray-50 p-3 rounded-lg">
+                                    <p><span class="font-bold">Estudio del MIT:</span> Las noticias falsas se difunden más rápido debido a la sorpresa, el miedo y el asco.</p>
+                                    <p class="mt-1"><span class="font-bold">Estudio de Ohio State:</span> Los usuarios prestan menos atención a las fuentes cuando se mezclan noticias y entretenimiento.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="card bg-white p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Periodismo en Transformación</h3>
+                        <p class="text-gray-600 mb-4">Los medios digitales han trasladado el periodismo a internet, exigiendo nuevas habilidades y creando riesgos de desinformación. El contenido generado por usuarios sin supervisión editorial ha impulsado las "noticias falsas", dañando la reputación del periodismo profesional, como se ve con movimientos como QAnon.</p>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Propiedad y Control del Contenido</h3>
+                        <p class="text-gray-600 mb-4">La facilidad para compartir complica la protección de la propiedad intelectual. Explora la diferencia entre los derechos de autor tradicionales y los modelos alternativos como el copyleft.</p>
+                        <div class="flex space-x-2 mb-4">
+                             <button id="copyright-btn" class="control-btn flex-1 p-2 rounded-md text-sm font-medium border">Derechos de Autor</button>
+                             <button id="copyleft-btn" class="control-btn flex-1 p-2 rounded-md text-sm font-medium border">Copyleft y CC</button>
+                        </div>
+                        <div id="ownership-content" class="text-sm"></div>
+                    </div>
+                    <div class="card bg-white p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Censura Gubernamental</h3>
+                        <p class="text-gray-600 mb-4">Los gobiernos emplean la censura digital por diversas razones. Haz clic en una categoría para ver un ejemplo.</p>
+                        <div id="censorship-container" class="space-y-3"></div>
+                    </div>
+                     <div class="card bg-white p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">El Problema de la Preservación Digital</h3>
+                        <p class="text-gray-600 mb-4">La evolución tecnológica lleva a la obsolescencia de los medios de almacenamiento y los formatos de datos, amenazando la historia moderna. La preservación garantiza la accesibilidad a largo plazo.</p>
+                        <div class="flex items-center justify-around text-center text-sm p-4 bg-gray-50 rounded-lg">
+                           <div>📼<p class="mt-1">Medios Antiguos</p></div>
+                           <div class="text-2xl text-gray-400">&rarr;</div>
+                           <div>💾<p class="mt-1">Transferencia</p></div>
+                           <div class="text-2xl text-gray-400">&rarr;</div>
+                           <div>💻<p class="mt-1">Emulación</p></div>
+                           <div class="text-2xl text-gray-400">&rarr;</div>
+                           <div>☁️<p class="mt-1">Accesible</p></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <footer class="text-center mt-16 py-4 text-gray-500 text-sm">
+                <p>Reporte interactivo generado basado en "Medios Digitales: Evolución, Características y Dilemas Sociales".</p>
+            </footer>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const data = {
+        navigation: [
+            { id: 'evolution', title: 'Evolución' },
+            { id: 'characteristics', title: 'Características' },
+            { id: 'immersive', title: 'Frontera Inmersiva' },
+            { id: 'dilemmas', title: 'Dilemas Sociales' }
+        ],
+        evolution: [
+            {
+                id: 'web1',
+                title: 'Web 1.0: La Web de Solo Lectura',
+                content: `<h3 class="text-xl font-bold text-gray-800 mb-3">Web 1.0: La Web de Solo Lectura</h3>
+                          <p class="text-gray-600 mb-4">En la era temprana, las páginas web eran estáticas, conteniendo principalmente texto e imágenes. El consumo de contenido era una experiencia pasiva y unidireccional. A medida que aumentaba el ancho de banda, el video y el audio se volvieron más comunes, pero la interacción del usuario era mínima.</p>
+                          <div class="p-4 bg-teal-50 rounded-lg text-teal-800">
+                             <p class="font-bold">Característica Clave:</p>
+                             <p>Entrega de contenido estático a una audiencia pasiva.</p>
+                          </div>`
+            },
+            {
+                id: 'web2',
+                title: 'Web 2.0: La Web Social',
+                content: `<h3 class="text-xl font-bold text-gray-800 mb-3">Web 2.0: La Web Social</h3>
+                          <p class="text-gray-600 mb-4">Un cambio fundamental hacia el contenido generado por el usuario, impulsado por blogs, podcasts, wikis y redes sociales. Esta era democratizó la creación de contenido y alteró cómo el público recibe información.</p>
+                          <ul class="list-disc list-inside text-gray-600 space-y-2 mb-4">
+                            <li><span class="font-bold">Informe CNN 2010:</span> 75% de las personas recibían noticias por email o redes sociales.</li>
+                            <li><span class="font-bold">YouTube (2005):</span> Creció a más de 2 mil millones de usuarios mensuales.</li>
+                            <li><span class="font-bold">Primer Meme Viral (1996):</span> Un GIF de un bebé bailando se difundió rápidamente por email.</li>
+                          </ul>
+                          <p class="text-gray-600">Conceptos como "tendencias" (trending topics) y "hashtags" se normalizaron.</p>`
+            },
+            {
+                id: 'web3',
+                title: 'Web 3.0: La Web Impulsada por IA',
+                content: `<h3 class="text-xl font-bold text-gray-800 mb-3">Web 3.0: La Web Impulsada por IA</h3>
+                          <p class="text-gray-600 mb-4">La Inteligencia Artificial es la influencia definitoria de la era actual, impactando tanto la creación de contenido como la experiencia del consumidor a través de la personalización y la manipulación sofisticada de medios.</p>
+                          <div class="space-y-4">
+                              <div><h4 class="font-semibold text-gray-700">IA en la Creación de Contenido:</h4>
+                              <p class="text-sm text-gray-600">Han surgido 'Deepfakes' (medios sintéticos), con usos creativos (video "INVISIBLE" de Duran Duran) y aplicaciones maliciosas (fraude de £200,000 por audio deepfake en 2019).</p></div>
+                              <div><h4 class="font-semibold text-gray-700">IA y Experiencia del Consumidor:</h4>
+                              <p class="text-sm text-gray-600">La IA predice la demanda de la audiencia y ofrece experiencias personalizadas, como recomendaciones en servicios de streaming, analizando grandes cantidades de datos de usuario.</p></div>
+                          </div>`
+            },
+            {
+                id: 'esports',
+                title: 'Auge de los E-Sports',
+                content: `<h3 class="text-xl font-bold text-gray-800 mb-3">Auge de los E-Sports</h3>
+                          <p class="text-gray-600 mb-4">La industria de los juegos evolucionó con consolas conectadas a internet, fomentando el juego social y creando carreras profesionales en e-sports. Plataformas como YouTube y Twitch ayudaron a los influencers a construir grandes audiencias.</p>
+                          <div class="p-4 bg-teal-50 rounded-lg text-teal-800">
+                             <p class="font-bold">Escala Masiva:</p>
+                             <p>La Copa Mundial de Fortnite 2019 tuvo una bolsa de premios de $100 millones.</p>
+                          </div>`
+            },
+        ],
+        characteristics: [
+            { icon: '⚡', title: 'Compartir Rápido', description: 'El contenido se puede compartir y distribuir globalmente con una facilidad y velocidad sin precedentes, como subir un video a YouTube o retuitear.' },
+            { icon: '💾', title: 'Almacenamiento Eficiente', description: 'Tecnologías de almacenamiento avanzadas, incluida la nube, permiten almacenar eficientemente inmensas cantidades de datos y acceder a ellos desde cualquier lugar.' },
+            { icon: '🔄', title: 'Interactividad', description: 'A diferencia del flujo unidireccional de los medios tradicionales, los medios digitales permiten la comunicación bidireccional, permitiendo a las audiencias responder, comentar e interactuar.' },
+            { icon: '🔗', title: 'Contenido No Lineal', description: 'El uso de hipervínculos permite a los usuarios navegar por el contenido en cualquier orden que elijan, creando una experiencia hipertextual en lugar de una ruta lineal.' },
+            { icon: '🌍', title: 'Redes Globales', description: 'Los medios digitales facilitan la interacción global, permitiendo a las personas agrupar recursos y acceder a una gama más amplia de fuentes de información.' },
+            { icon: '🗣️', title: 'Comunicación Virtual', description: 'Una amplia gama de tecnologías permite la comunicación virtual, dando a los individuos más opciones sobre cómo presentarse.' },
+            { icon: '➕', title: 'Convergencia', description: 'Los usuarios frecuentemente interactúan con múltiples formas de medios digitales simultáneamente, como una videollamada que combina voz y video en vivo.' },
+        ],
+        immersive: [
+            {
+                id: 'vr',
+                title: 'Realidad Virtual (RV)',
+                content: `<p class="text-gray-600 mb-4">La RV crea un entorno 3D simulado completamente inmersivo, típicamente experimentado a través de visores. Las empresas la están adoptando para:</p>
+                          <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-teal-600 mr-3 mt-1">🛡️</span><div><h4 class="font-semibold">Capacitación de Seguridad</h4><p class="text-sm text-gray-500">Empresas como BP y ExxonMobil usan RV para entrenar empleados en procedimientos de emergencia en un entorno seguro.</p></div></li>
+                            <li class="flex items-start"><span class="text-teal-600 mr-3 mt-1">🛍️</span><div><h4 class="font-semibold">Ventas y Marketing</h4><p class="text-sm text-gray-500">Zimmer Biomet utiliza un laboratorio virtual para que los dentistas experimenten nuevos productos de forma inmersiva.</p></div></li>
+                            <li class="flex items-start"><span class="text-teal-600 mr-3 mt-1">🏛️</span><div><h4 class="font-semibold">Espacios de Trabajo Virtuales</h4><p class="text-sm text-gray-500">Creando oficinas virtuales para fomentar discusiones casuales y resolución creativa de problemas.</p></div></li>
+                          </ul>`
+            },
+            {
+                id: 'ar',
+                title: 'Realidad Aumentada (RA)',
+                content: `<p class="text-gray-600 mb-4">La RA superpone contenido digital en una experiencia del mundo real, comúnmente a través de dispositivos móviles (ej. filtros de Snapchat). Las industrias la usan para:</p>
+                         <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-teal-600 mr-3 mt-1">🔧</span><div><h4 class="font-semibold">Inspecciones Remotas</h4><p class="text-sm text-gray-500">Usada en manufactura y minería para inspeccionar maquinaria remotamente, minimizando interrupciones.</p></div></li>
+                            <li class="flex items-start"><span class="text-teal-600 mr-3 mt-1">🎓</span><div><h4 class="font-semibold">Educación</h4><p class="text-sm text-gray-500">Creando modelos de aprendizaje 3D atractivos para mejorar las experiencias educativas.</p></div></li>
+                          </ul>`
+            },
+            {
+                id: 'mr',
+                title: 'Realidad Mixta (RM) y Gemelos Digitales',
+                content: `<p class="text-gray-600 mb-4">La RM mezcla los mundos real y digital. Un gemelo digital es una simulación virtual dinámica de un sistema o activo del mundo real. Por ejemplo:</p>
+                         <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-teal-600 mr-3 mt-1">🛢️</span><div><h4 class="font-semibold">Royal Dutch Shell</h4><p class="text-sm text-gray-500">Creó gemelos digitales de plataformas petroleras marinas, usando datos de sensores e IA para gestionar operaciones, mejorar la seguridad y habilitar el mantenimiento predictivo.</p></div></li>
+                          </ul>`
+            }
+        ],
+        ownership: {
+            copyright: `<h4 class="font-semibold text-gray-700 mb-2">Derechos de Autor (Copyright)</h4>
+                        <p class="text-gray-600">Un derecho legal que protege a los creadores del uso no autorizado. Generalmente se requiere permiso, con excepciones para dominio público o "uso justo" (estudio, crítica). Un caso de alto perfil involucró "Blurred Lines" (2013), resultando en una multa de más de $5 millones por su similitud con una canción de Marvin Gaye.</p>`,
+            copyleft: `<h4 class="font-semibold text-gray-700 mb-2">Copyleft y Creative Commons (CC)</h4>
+                       <p class="text-gray-600">Contrarresta los derechos de autor restrictivos. Permite a los propietarios dejar que otros usen, modifiquen y compartan libremente el trabajo bajo condiciones específicas. CC es un sistema que estandariza permisos, desde la licencia menos restrictiva (CC BY) hasta la más restrictiva (CC BY NC ND).</p>`
+        },
+        censorship: [
+            {
+                type: 'Político',
+                example: 'Camboya bloqueando sitios de noticias independientes antes de una elección en 2018.'
+            },
+            {
+                type: 'Social',
+                example: 'Uganda ordenando a los ISP bloquear sitios web pornográficos en 2018.'
+            },
+            {
+                type: 'Conflicto y Seguridad',
+                example: 'Sri Lanka cerrando redes sociales tras los atentados de 2019 para detener la desinformación.'
+            },
+            {
+                type: 'Herramientas de Internet',
+                example: 'Gobiemos monitoreando comunicaciones privadas como correos electrónicos, mensajes y búsquedas.'
+            }
+        ]
+    };
+
+    const desktopNav = document.getElementById('desktop-nav');
+    data.navigation.forEach(item => {
+        const link = document.createElement('a');
+        link.href = `#${item.id}`;
+        link.textContent = item.title;
+        link.className = 'nav-link block font-medium text-gray-600 py-2 px-4 rounded-lg';
+        desktopNav.appendChild(link);
+    });
+
+    const timelineNav = document.getElementById('timeline-nav');
+    const evolutionContent = document.getElementById('evolution-content');
+    data.evolution.forEach((item, index) => {
+        const navItem = document.createElement('div');
+        navItem.className = 'timeline-item cursor-pointer p-4 md:pl-8 relative border-l-2 border-transparent';
+        navItem.dataset.id = item.id;
+        navItem.innerHTML = `<div class="timeline-dot absolute -left-[5px] top-1/2 -translate-y-1/2 w-2 h-2 bg-gray-200 rounded-full"></div><span class="font-semibold text-gray-700">${item.title}</span>`;
+        timelineNav.appendChild(navItem);
+    });
+    
+    function updateEvolutionContent(id) {
+        const contentData = data.evolution.find(i => i.id === id);
+        if (contentData) {
+            evolutionContent.innerHTML = contentData.content;
+        }
+        document.querySelectorAll('.timeline-item').forEach(el => {
+            el.classList.toggle('active', el.dataset.id === id);
+        });
+    }
+
+    timelineNav.addEventListener('click', (e) => {
+        const target = e.target.closest('.timeline-item');
+        if (target) {
+            updateEvolutionContent(target.dataset.id);
+        }
+    });
+
+    const characteristicsGrid = document.getElementById('characteristics-grid');
+    const modal = document.getElementById('modal');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const modalTitle = document.getElementById('modal-title');
+    const modalContent = document.getElementById('modal-content');
+    const modalClose = document.getElementById('modal-close');
+
+    data.characteristics.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'card bg-white p-4 rounded-lg text-center cursor-pointer';
+        card.innerHTML = `<div class="text-4xl">${item.icon}</div><h4 class="mt-2 font-semibold text-gray-700">${item.title}</h4>`;
+        card.addEventListener('click', () => {
+            modalTitle.textContent = item.title;
+            modalContent.textContent = item.description;
+            modal.classList.remove('hidden');
+            modalBackdrop.classList.remove('hidden');
+        });
+        characteristicsGrid.appendChild(card);
+    });
+
+    const closeModal = () => {
+        modal.classList.add('hidden');
+        modalBackdrop.classList.add('hidden');
+    }
+    modalClose.addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', closeModal);
+
+
+    const immersiveTabs = document.getElementById('immersive-tabs');
+    const immersiveContent = document.getElementById('immersive-content');
+    data.immersive.forEach((item) => {
+        const tab = document.createElement('button');
+        tab.className = 'tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-teal-600 hover:border-teal-300';
+        tab.textContent = item.title;
+        tab.dataset.id = item.id;
+        immersiveTabs.appendChild(tab);
+    });
+
+    function updateImmersiveContent(id) {
+        const contentData = data.immersive.find(i => i.id === id);
+        if (contentData) {
+            immersiveContent.innerHTML = contentData.content;
+        }
+        document.querySelectorAll('.tab').forEach(el => {
+            el.classList.toggle('active', el.dataset.id === id);
+        });
+    }
+
+    immersiveTabs.addEventListener('click', e => {
+        if (e.target.matches('.tab')) {
+            updateImmersiveContent(e.target.dataset.id);
+        }
+    });
+    
+    const ownershipContent = document.getElementById('ownership-content');
+    const copyrightBtn = document.getElementById('copyright-btn');
+    const copyleftBtn = document.getElementById('copyleft-btn');
+    
+    function updateOwnershipContent(type) {
+        ownershipContent.innerHTML = data.ownership[type];
+        copyrightBtn.classList.toggle('bg-teal-600', type === 'copyright');
+        copyrightBtn.classList.toggle('text-white', type === 'copyright');
+        copyleftBtn.classList.toggle('bg-teal-600', type === 'copyleft');
+        copyleftBtn.classList.toggle('text-white', type === 'copyleft');
+    }
+
+    copyrightBtn.addEventListener('click', () => updateOwnershipContent('copyright'));
+    copyleftBtn.addEventListener('click', () => updateOwnershipContent('copyleft'));
+
+    const censorshipContainer = document.getElementById('censorship-container');
+    data.censorship.forEach(item => {
+        const element = document.createElement('div');
+        element.className = 'bg-gray-50 p-3 rounded-md';
+        element.innerHTML = `<p class="font-semibold text-gray-700">${item.type}</p>
+                             <p class="text-sm text-gray-500">${item.example}</p>`;
+        censorshipContainer.appendChild(element);
+    });
+    
+    const ctx = document.getElementById('psychologicalImpactsChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Baja Autoestima', 'Ansiedad/Depresión', 'Sueño Interrumpido', 'FOMO', 'Menor Actividad'],
+            datasets: [{
+                label: 'Resultados Negativos del Uso Excesivo de Redes Sociales',
+                data: [8, 9, 7, 8, 6],
+                backgroundColor: ['#fde68a', '#fcd34d', '#fbbf24', '#f59e0b', '#d97706'],
+                borderColor: ['#fde68a', '#fcd34d', '#fbbf24', '#f59e0b', '#d97706'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) { return 'Un resultado negativo significativo vinculado al uso excesivo de redes sociales.'; }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { display: false },
+                    grid: { display: false }
+                },
+                y: {
+                     grid: { display: false }
+                }
+            }
+        }
+    });
+    
+    updateEvolutionContent('web1');
+    updateImmersiveContent('vr');
+    updateOwnershipContent('copyright');
+
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { rootMargin: '-30% 0px -70% 0px' });
+    sections.forEach(section => observer.observe(section));
+});
+</script>
+</body>
+</html>
+
