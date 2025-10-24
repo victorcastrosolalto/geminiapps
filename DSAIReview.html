@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Landscape of Artificial Intelligence</title>
+    <title>El Panorama de la Inteligencia Artificial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Chosen Palette: Warm Neutrals (Stone) with Sky Blue Accent -->
@@ -83,20 +83,20 @@
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex-shrink-0">
-                    <h1 class="text-xl font-bold text-sky-700">The AI Landscape</h1>
+                    <h1 class="text-xl font-bold text-sky-700">El Panorama de la IA</h1>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#overview" class="nav-link active" data-page="overview">Overview</a>
-                        <a href="#concepts" class="nav-link" data-page="concepts">What is AI?</a>
-                        <a href="#mechanics" class="nav-link" data-page="mechanics">How AI Works</a>
-                        <a href="#history" class="nav-link" data-page="history">History & Future</a>
-                        <a href="#dilemmas" class="nav-link" data-page="dilemmas">Critical Dilemmas</a>
+                        <a href="#overview" class="nav-link active" data-page="overview">Resumen Ejecutivo</a>
+                        <a href="#concepts" class="nav-link" data-page="concepts">¿Qué es la IA?</a>
+                        <a href="#mechanics" class="nav-link" data-page="mechanics">Cómo Funciona la IA</a>
+                        <a href="#history" class="nav-link" data-page="history">Historia y Futuro</a>
+                        <a href="#dilemmas" class="nav-link" data-page="dilemmas">Dilemas Críticos</a>
                     </div>
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-stone-600 hover:text-stone-900 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-sky-500">
-                        <span class="sr-only">Open main menu</span>
+                        <span class="sr-only">Abrir menú principal</span>
                         <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
@@ -109,11 +109,11 @@
         </nav>
         <div class="md:hidden hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#overview" class="nav-link active block" data-page="overview">Overview</a>
-                <a href="#concepts" class="nav-link block" data-page="concepts">What is AI?</a>
-                <a href="#mechanics" class="nav-link block" data-page="mechanics">How AI Works</a>
-                <a href="#history" class="nav-link block" data-page="history">History & Future</a>
-                <a href="#dilemmas" class="nav-link block" data-page="dilemmas">Critical Dilemmas</a>
+                <a href="#overview" class="nav-link active block" data-page="overview">Resumen Ejecutivo</a>
+                <a href="#concepts" class="nav-link block" data-page="concepts">¿Qué es la IA?</a>
+                <a href="#mechanics" class="nav-link block" data-page="mechanics">Cómo Funciona la IA</a>
+                <a href="#history" class="nav-link block" data-page="history">Historia y Futuro</a>
+                <a href="#dilemmas" class="nav-link block" data-page="dilemmas">Dilemas Críticos</a>
             </div>
         </div>
     </header>
@@ -121,91 +121,91 @@
     <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         
         <section id="page-overview" class="content-section active px-4">
-            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Executive Summary</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Resumen Ejecutivo</h2>
             <p class="text-lg text-stone-700 mb-6">
-                Artificial intelligence (AI) represents the fifth generation of computing, involving systems that adapt to perform tasks once exclusive to human cognition and creativity. The current landscape is dominated by Weak or Narrow AI, which excels at specific tasks and is already transforming industries. This is distinct from the hypothetical Strong AI (AGI) and Super AI.
+                La inteligencia artificial (IA) representa la quinta generación de la computación, involucrando sistemas que se adaptan para realizar tareas que antes eran exclusivas de la cognición y creatividad humana. El panorama actual está dominado por la IA Débil o Estrecha, que sobresale en tareas específicas y ya está transformando industrias. Esto es distinto de la hipotética IA Fuerte (IAG) y la Súper IA.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-sky-700 mb-2">The Engine of AI</h3>
+                    <h3 class="font-semibold text-sky-700 mb-2">El Motor de la IA</h3>
                     <p class="text-sm text-stone-600">
-                        The engine of modern AI is <strong class="text-stone-900">Machine Learning</strong>, which uses algorithms to learn from data. Key methodologies include Supervised, Unsupervised, and Reinforced Learning. <strong class="text-stone-900">Deep Learning</strong>, a subset using multi-layered Artificial Neural Networks, powers the most complex applications.
+                        El motor de la IA moderna es el <strong class="text-stone-900">Aprendizaje Automático (Machine Learning)</strong>, que utiliza algoritmos para aprender de los datos. Las metodologías clave incluyen el Aprendizaje Supervisado, No Supervisado y Reforzado. El <strong class="text-stone-900">Aprendizaje Profundo (Deep Learning)</strong>, un subconjunto que utiliza Redes Neuronales Artificiales multicapa, impulsa las aplicaciones más complejas.
                     </p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="font-semibold text-sky-700 mb-2">A Cyclical History</h3>
+                    <h3 class="font-semibold text-sky-700 mb-2">Una Historia Cíclica</h3>
                     <p class="text-sm text-stone-600">
-                        AI's history is marked by "AI summers" (intense funding) and "AI winters" (reduced investment). The current boom is fueled by massive datasets (Big Data) and significant advances in processing power, making large-scale machine learning feasible.
+                        La historia de la IA está marcada por "veranos de la IA" (financiación intensa) e "inviernos de la IA" (reducción de la inversión). El auge actual es impulsado por conjuntos de datos masivos (Big Data) y avances significativos en la potencia de procesamiento, lo que hace viable el aprendizaje automático a gran escala.
                     </p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 md:col-span-2 lg:col-span-1">
-                    <h3 class="font-semibold text-sky-700 mb-2">Significant Global Dilemmas</h3>
+                    <h3 class="font-semibold text-sky-700 mb-2">Dilemas Globales Significativos</h3>
                     <p class="text-sm text-stone-600">
-                        Rapid progress has given rise to critical challenges, including algorithmic bias, accountability, "black box" transparency, environmental impact, and widespread concerns over job displacement.
+                        El rápido progreso ha dado lugar a desafíos críticos, incluyendo el sesgo algorítmico, la responsabilidad, la transparencia de la "caja negra", el impacto ambiental y las preocupaciones generalizadas sobre el desplazamiento laboral.
                     </p>
                 </div>
             </div>
 
-            <h3 class="text-2xl font-bold text-stone-900 mb-4">Key Concepts at a Glance</h3>
+            <h3 class="text-2xl font-bold text-stone-900 mb-4">Conceptos Clave de un Vistazo</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="bg-white p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h4 class="font-semibold text-lg text-stone-800">Weak / Narrow AI</h4>
-                    <p class="text-sm text-stone-600 mt-1">Excels at specific tasks. Cannot perform tasks outside its function. (e.g., Netflix recommendations, Siri)</p>
+                    <h4 class="font-semibold text-lg text-stone-800">IA Débil / Estrecha</h4>
+                    <p class="text-sm text-stone-600 mt-1">Sobresale en tareas específicas. No puede realizar tareas fuera de su función. (ej. recomendaciones de Netflix, Siri)</p>
                 </div>
                 <div class="bg-white p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h4 class="font-semibold text-lg text-stone-800">Strong AI / AGI</h4>
-                    <p class="text-sm text-stone-600 mt-1">Hypothetical AI with full human cognitive abilities, consciousness, and self-awareness.</p>
+                    <h4 class="font-semibold text-lg text-stone-800">IA Fuerte / IAG</h4>
+                    <p class="text-sm text-stone-600 mt-1">IA hipotética con plenas capacidades cognitivas humanas, conciencia y autoconciencia.</p>
                 </div>
                 <div class="bg-white p-5 rounded-lg shadow-sm border border-stone-200">
-                    <h4 class="font-semibold text-lg text-stone-800">Super AI</h4>
-                    <p class="text-sm text-stone-600 mt-1">Hypothetical AI that would surpass human intelligence in all aspects, tied to the concept of the Singularity.</p>
+                    <h4 class="font-semibold text-lg text-stone-800">Súper IA</h4>
+                    <p class="text-sm text-stone-600 mt-1">IA hipotética que superaría la inteligencia humana en todos los aspectos, ligada al concepto de la Singularidad.</p>
                 </div>
             </div>
         </section>
 
         <section id="page-concepts" class="content-section px-4">
-            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Defining & Categorizing AI</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Definición y Categorización de la IA</h2>
             <p class="text-lg text-stone-700 mb-6">
-                This section explores the fundamental definitions of AI, from historical tests of intelligence to the categories used to classify modern systems. AI encompasses systems designed for tasks requiring human intelligence, like reasoning, problem-solving, and adaptation.
+                Esta sección explora las definiciones fundamentales de la IA, desde las pruebas históricas de inteligencia hasta las categorías utilizadas para clasificar los sistemas modernos. La IA abarca sistemas diseñados para tareas que requieren inteligencia humana, como el razonamiento, la resolución de problemas y la adaptación.
             </p>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-1">
-                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Types of AI</h3>
-                    <p class="text-sm text-stone-600 mb-4">Click each category to learn more. These classifications help frame the capabilities and goals of different AI systems.</p>
+                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Tipos de IA</h3>
+                    <p class="text-sm text-stone-600 mb-4">Haga clic en cada categoría para obtener más información. Estas clasificaciones ayudan a enmarcar las capacidades y objetivos de los diferentes sistemas de IA.</p>
                     <div class="space-y-3">
-                        <button class="ai-type-button active" data-ai-type="weak">Weak / Narrow AI</button>
-                        <button class="ai-type-button" data-ai-type="domain">Domain-Specific AI</button>
-                        <button class="ai-type-button" data-ai-type="strong">Strong AI / AGI</button>
-                        <button class="ai-type-button" data-ai-type="super">Super AI</button>
+                        <button class="ai-type-button active" data-ai-type="weak">IA Débil / Estrecha</button>
+                        <button class="ai-type-button" data-ai-type="domain">IA Específica de Dominio</button>
+                        <button class="ai-type-button" data-ai-type="strong">IA Fuerte / IAG</button>
+                        <button class="ai-type-button" data-ai-type="super">Súper IA</button>
                     </div>
                 </div>
                 <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm border border-stone-200">
                     <div id="ai-type-content">
                         <div class="ai-type-panel active" data-ai-type="weak">
-                            <h4 class="text-2xl font-bold text-sky-700 mb-2">Weak / Narrow AI</h4>
-                            <p class="font-semibold text-stone-700 mb-2">AI with a limited function or designed to perform a specific task. This is the type of AI encountered in daily life.</p>
-                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Key Characteristics:</strong> Limited scope; cannot perform tasks outside its designated function.</p>
-                            <p class="text-stone-600"><strong class="text-stone-800">Examples:</strong> Netflix recommendations, Siri/Alexa, chess programs, Google search, self-driving vehicles, facial recognition.</p>
+                            <h4 class="text-2xl font-bold text-sky-700 mb-2">IA Débil / Estrecha</h4>
+                            <p class="font-semibold text-stone-700 mb-2">IA con una función limitada o diseñada para realizar una tarea específica. Este es el tipo de IA que se encuentra en la vida diaria.</p>
+                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Características Clave:</strong> Alcance limitado; no puede realizar tareas fuera de su función designada.</p>
+                            <p class="text-stone-600"><strong class="text-stone-800">Ejemplos:</strong> Recomendaciones de Netflix, Siri/Alexa, programas de ajedrez, búsqueda de Google, vehículos autónomos, reconocimiento facial.</p>
                         </div>
                         <div class="ai-type-panel hidden" data-ai-type="domain">
-                            <h4 class="text-2xl font-bold text-sky-700 mb-2">Domain-Specific AI</h4>
-                            <p class="font-semibold text-stone-700 mb-2">A subset of weak AI that can perform tasks better than humans within a specific, narrow domain.</p>
-                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Key Characteristics:</strong> Superior performance in a single area.</p>
-                            <p class="text-stone-600"><strong class="text-stone-800">Examples:</strong> AI for cancer detection, DeepMind's AlphaGo (master of the board game Go).</p>
+                            <h4 class="text-2xl font-bold text-sky-700 mb-2">IA Específica de Dominio</h4>
+                            <p class="font-semibold text-stone-700 mb-2">Un subconjunto de IA débil que puede realizar tareas mejor que los humanos dentro de un dominio específico y estrecho.</p>
+                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Características Clave:</strong> Rendimiento superior en un área única.</p>
+                            <p class="text-stone-600"><strong class="text-stone-800">Ejemplos:</strong> IA para la detección de cáncer, AlphaGo de DeepMind (maestro del juego de mesa Go).</p>
                         </div>
                         <div class="ai-type-panel hidden" data-ai-type="strong">
-                            <h4 class="text-2xl font-bold text-sky-700 mb-2">Strong AI / AGI</h4>
-                            <p class="font-semibold text-stone-700 mb-2">Artificial General Intelligence (AGI) refers to AI that can develop consciousness and make decisions better than humans.</p>
-                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Key Characteristics:</strong> Consciousness, self-awareness, emotions, full human cognitive abilities.</p>
-                            <p class="text-stone-600"><strong class="text-stone-800">Examples:</strong> Currently hypothetical; the long-term goal for research labs like DeepMind.</p>
+                            <h4 class="text-2xl font-bold text-sky-700 mb-2">IA Fuerte / IAG</h4>
+                            <p class="font-semibold text-stone-700 mb-2">La Inteligencia Artificial General (IAG) se refiere a la IA que puede desarrollar conciencia y tomar decisiones mejor que los humanos.</p>
+                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Características Clave:</strong> Conciencia, autoconciencia, emociones, plenas capacidades cognitivas humanas.</p>
+                            <p class="text-stone-600"><strong class="text-stone-800">Ejemplos:</strong> Actualmente hipotético; el objetivo a largo plazo para laboratorios de investigación como DeepMind.</p>
                         </div>
                         <div class="ai-type-panel hidden" data-ai-type="super">
-                            <h4 class="text-2xl font-bold text-sky-700 mb-2">Super AI</h4>
-                            <p class="font-semibold text-stone-700 mb-2">AI that surpasses human intelligence in all aspects.</p>
-                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Key Characteristics:</strong> Superior to human intelligence.</p>
-                            <p class="text-stone-600"><strong class="text-stone-800">Examples:</strong> Hypothetical; often explored in science fiction and tied to the concept of the Singularity.</p>
+                            <h4 class="text-2xl font-bold text-sky-700 mb-2">Súper IA</h4>
+                            <p class="font-semibold text-stone-700 mb-2">IA que supera la inteligencia humana en todos los aspectos.</p>
+                            <p class="text-stone-600 mb-4"><strong class="text-stone-800">Características Clave:</strong> Superior a la inteligencia humana.</p>
+                            <p class="text-stone-600"><strong class="text-stone-800">Ejemplos:</strong> Hipotético; a menudo explorado en la ciencia ficción y ligado al concepto de la Singularidad.</p>
                         </div>
                     </div>
                 </div>
@@ -213,32 +213,32 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Testing for Intelligence</h3>
-                    <p class="text-stone-600 mb-4">The primary historical method is the <strong class="text-stone-800">Turing Test</strong> (1950), where a human interrogator tries to distinguish between a human and a computer. If the computer is mistaken for a human >30% of the time, it passes.</p>
+                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Pruebas de Inteligencia</h3>
+                    <p class="text-stone-600 mb-4">El principal método histórico es el <strong class="text-stone-800">Test de Turing</strong> (1950), donde un interrogador humano intenta distinguir entre un humano y una computadora. Si la computadora es confundida con un humano más del 30% del tiempo, se dice que pasa la prueba.</p>
                     <ul class="list-disc list-inside space-y-2 text-stone-600 text-sm">
-                        <li><strong class="text-stone-700">Early Chatbots:</strong> ELIZA (1960s)</li>
-                        <li><strong class="text-stone-700">First Pass:</strong> "Eugene Goostman" (2012), posing as a 13-year-old boy.</li>
-                        <li><strong class="text-stone-700">Modern Use:</strong> CAPTCHA is a reverse Turing Test to verify users are human.</li>
+                        <li><strong class="text-stone-700">Chatbots Tempranos:</strong> ELIZA (década de 1960)</li>
+                        <li><strong class="text-stone-700">Primera Aprobación:</strong> "Eugene Goostman" (2012), haciéndose pasar por un niño ucraniano de 13 años.</li>
+                        <li><strong class="text-stone-700">Uso Moderno:</strong> CAPTCHA es un Test de Turing inverso para verificar que los usuarios son humanos.</li>
                     </ul>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Expert Systems</h3>
-                    <p class="text-stone-600 mb-4">A form of domain-specific AI that acts as a human expert. It has three main components:</p>
+                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Sistemas Expertos</h3>
+                    <p class="text-stone-600 mb-4">Una forma de IA específica de dominio que actúa como un experto humano. Tiene tres componentes principales:</p>
                     <div class="flex flex-col space-y-2">
                         <div class="flex items-center">
                             <span class="flex-shrink-0 w-8 h-8 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center font-bold">1</span>
-                            <span class="ml-3 text-stone-700 font-medium">Knowledge Base:</span>
-                            <span class="ml-2 text-sm text-stone-600">Facts and rules from human experts.</span>
+                            <span class="ml-3 text-stone-700 font-medium">Base de Conocimiento:</span>
+                            <span class="ml-2 text-sm text-stone-600">Hechos y reglas de expertos humanos.</span>
                         </div>
                         <div class="flex items-center">
                             <span class="flex-shrink-0 w-8 h-8 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center font-bold">2</span>
-                            <span class="ml-3 text-stone-700 font-medium">Inference Engine:</span>
-                            <span class="ml-2 text-sm text-stone-600">Applies rules to facts.</span>
+                            <span class="ml-3 text-stone-700 font-medium">Motor de Inferencia:</span>
+                            <span class="ml-2 text-sm text-stone-600">Aplica reglas a los hechos.</span>
                         </div>
                         <div class="flex items-center">
                             <span class="flex-shrink-0 w-8 h-8 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center font-bold">3</span>
-                            <span class="ml-3 text-stone-700 font-medium">User Interface:</span>
-                            <span class="ml-2 text-sm text-stone-600">Allows non-experts to query.</span>
+                            <span class="ml-3 text-stone-700 font-medium">Interfaz de Usuario:</span>
+                            <span class="ml-2 text-sm text-stone-600">Permite a los no expertos hacer consultas.</span>
                         </div>
                     </div>
                 </div>
@@ -246,39 +246,39 @@
         </section>
 
         <section id="page-mechanics" class="content-section px-4">
-            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">How AI Works: Mechanics</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Cómo Funciona la IA: Mecánica</h2>
             <p class="text-lg text-stone-700 mb-6">
-                This section details the core technologies that power modern AI. The central component is Machine Learning, an iterative process where algorithms analyze data, identify patterns, and make predictions, refining their models over time.
+                Esta sección detalla las tecnologías centrales que impulsan la IA moderna. El componente central es el Aprendizaje Automático (Machine Learning), un proceso iterativo donde los algoritmos analizan datos, identifican patrones y hacen predicciones, refinando sus modelos con el tiempo.
             </p>
 
             <div class="bg-white rounded-lg shadow-sm border border-stone-200 mb-8">
-                <h3 class="text-xl font-semibold text-stone-900 p-5">Types of Machine Learning</h3>
+                <h3 class="text-xl font-semibold text-stone-900 p-5">Tipos de Aprendizaje Automático</h3>
                 <div class="border-b border-stone-200">
                     <nav class="flex space-x-4 px-5" aria-label="Tabs">
-                        <button class="ml-type-tab active" data-ml-type="supervised">Supervised Learning</button>
-                        <button class="ml-type-tab" data-ml-type="unsupervised">Unsupervised Learning</button>
-                        <button class="ml-type-tab" data-ml-type="reinforced">Reinforced Learning</button>
+                        <button class="ml-type-tab active" data-ml-type="supervised">Aprendizaje Supervisado</button>
+                        <button class="ml-type-tab" data-ml-type="unsupervised">Aprendizaje No Supervisado</button>
+                        <button class="ml-type-tab" data-ml-type="reinforced">Aprendizaje Reforzado</button>
                     </nav>
                 </div>
                 <div class="p-5">
                     <div id="ml-type-content">
                         <div class="ml-type-panel active" data-ml-type="supervised">
-                            <h4 class="text-lg font-semibold text-sky-700">Supervised Learning</h4>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Training:</strong> Learns by example from a training dataset where inputs are paired with correct outputs (labeled data).</p>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Goal:</strong> Classification (assigning to a category) and regression (predicting continuous values).</p>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Applications:</strong> Spam filters, fraud detection, handwriting recognition, search ranking.</p>
+                            <h4 class="text-lg font-semibold text-sky-700">Aprendizaje Supervisado</h4>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Entrenamiento:</strong> Aprende por ejemplo de un conjunto de datos de entrenamiento donde las entradas se emparejan con salidas correctas (datos etiquetados).</p>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Objetivo:</strong> Clasificación (asignar datos a una categoría) y regresión (predecir valores continuos).</p>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Aplicaciones:</strong> Filtros de spam, detección de fraude, reconocimiento de escritura a mano, clasificación de búsqueda.</p>
                         </div>
                         <div class="ml-type-panel hidden" data-ml-type="unsupervised">
-                            <h4 class="text-lg font-semibold text-sky-700">Unsupervised Learning</h4>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Training:</strong> Uses unlabeled datasets and analyzes features to find underlying patterns or groupings (cluster analysis).</p>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Goal:</strong> Discovering hidden patterns that a human observer might miss.</p>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Applications:</strong> Social network analysis, market segmentation.</p>
+                            <h4 class="text-lg font-semibold text-sky-700">Aprendizaje No Supervisado</h4>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Entrenamiento:</strong> Utiliza conjuntos de datos sin etiquetar y analiza las características de los datos para encontrar patrones o agrupaciones subyacentes (análisis de clústeres).</p>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Objetivo:</strong> Descubrir patrones ocultos que un observador humano podría pasar por alto.</p>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Aplicaciones:</strong> Análisis de redes sociales, segmentación de mercado.</p>
                         </div>
                         <div class="ml-type-panel hidden" data-ml-type="reinforced">
-                            <h4 class="text-lg font-semibold text-sky-700">Reinforced Learning</h4>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Training:</strong> A software agent learns by interacting with an environment. It is rewarded for correct actions and penalized for incorrect ones.</p>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Goal:</strong> Making optimal decisions in a dynamic environment by maximizing its cumulative reward.</p>
-                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Applications:</strong> Autonomous vehicles, predictive maintenance, robotics, complex games.</p>
+                            <h4 class="text-lg font-semibold text-sky-700">Aprendizaje Reforzado</h4>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Entrenamiento:</strong> Un agente de software aprende interactuando con un entorno. Es recompensado por acciones correctas y penalizado por incorrectas.</p>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Objetivo:</strong> Tomar decisiones óptimas en un entorno dinámico maximizando su recompensa acumulada.</p>
+                            <p class="mt-2 text-stone-600"><strong class="text-stone-800">Aplicaciones:</strong> Vehículos autónomos, mantenimiento predictivo, robótica, juegos complejos.</p>
                         </div>
                     </div>
                 </div>
@@ -286,53 +286,53 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Artificial Neural Networks (ANNs)</h3>
-                    <p class="text-stone-600 mb-4">ANNs are systems of interconnected nodes that mimic the human brain, powering Deep Learning. They model complex, non-linear relationships and generalize patterns from new data.</p>
+                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Redes Neuronales Artificiales (RNA)</h3>
+                    <p class="text-stone-600 mb-4">Las RNA son sistemas de nodos interconectados que imitan las neuronas en el cerebro humano, impulsando el Aprendizaje Profundo. Modelan relaciones complejas no lineales y generalizan patrones a partir de datos nuevos.</p>
                     <div class="space-y-4">
                         <div class="text-center p-3 bg-sky-50 rounded-md">
-                            <h5 class="font-medium text-sky-700">1. Input Layer</h5>
-                            <p class="text-sm text-stone-600">Data enters the network</p>
+                            <h5 class="font-medium text-sky-700">1. Capa de Entrada</h5>
+                            <p class="text-sm text-stone-600">Los datos entran en la red</p>
                         </div>
                         <div class="flex justify-center">
                             <span class="text-2xl text-stone-400">&darr;</span>
                         </div>
                         <div class="text-center p-3 bg-orange-50 rounded-md">
-                            <h5 class="font-medium text-orange-700">2. Hidden Layer(s)</h5>
-                            <p class="text-sm text-stone-600">Nodes process data, assign weights, and "fire" if a threshold is met</p>
+                            <h5 class="font-medium text-orange-700">2. Capa(s) Oculta(s)</h5>
+                            <p class="text-sm text-stone-600">Los nodos procesan datos, asignan pesos y "disparan" si se cumple un umbral</p>
                         </div>
                         <div class="flex justify-center">
                             <span class="text-2xl text-stone-400">&darr;</span>
                         </div>
                         <div class="text-center p-3 bg-green-50 rounded-md">
-                            <h5 class="font-medium text-green-700">3. Output Layer</h5>
-                            <p class="text-sm text-stone-600">The final processed signal provides the result</p>
+                            <h5 class="font-medium text-green-700">3. Capa de Salida</h5>
+                            <p class="text-sm text-stone-600">La señal procesada final proporciona el resultado</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Applications of Pattern Recognition</h3>
-                    <p class="text-stone-600 mb-4">A key function of ML, used to identify patterns in data for various purposes.</p>
+                    <h3 class="text-xl font-semibold text-stone-900 mb-3">Aplicaciones del Reconocimiento de Patrones</h3>
+                    <p class="text-stone-600 mb-4">Una función clave del Aprendizaje Automático, utilizada para identificar patrones en los datos con diversos fines.</p>
                     <ul class="space-y-3">
                         <li class="p-3 bg-stone-50 rounded-md">
-                            <h5 class="font-medium text-stone-800">Data Analytics</h5>
-                            <p class="text-sm text-stone-600">Stock market forecasting, audience research (Google Analytics).</p>
+                            <h5 class="font-medium text-stone-800">Análisis de Datos</h5>
+                            <p class="text-sm text-stone-600">Previsión del mercado de valores, investigación de audiencia (Google Analytics).</p>
                         </li>
                         <li class="p-3 bg-stone-50 rounded-md">
-                            <h5 class="font-medium text-stone-800">Natural Language Processing (NLP)</h5>
-                            <p class="text-sm text-stone-600">Text analysis, translation (Google Translate), grammar correction (Grammarly).</p>
+                            <h5 class="font-medium text-stone-800">Procesamiento del Lenguaje Natural (PLN)</h5>
+                            <p class="text-sm text-stone-600">Análisis de texto, traducción (Google Translate), corrección gramatical (Grammarly).</p>
                         </li>
                         <li class="p-3 bg-stone-50 rounded-md">
-                            <h5 class="font-medium text-stone-800">Image Recognition</h5>
-                            <p class="text-sm text-stone-600">Image search (Google Images), facial recognition for security.</p>
+                            <h5 class="font-medium text-stone-800">Reconocimiento de Imágenes</h5>
+                            <p class="text-sm text-stone-600">Algoritmos de búsqueda de imágenes (Google Images), reconocimiento facial para seguridad.</p>
                         </li>
                         <li class="p-3 bg-stone-50 rounded-md">
-                            <h5 class="font-medium text-stone-800">Voice/Sound Recognition</h5>
-                            <p class="text-sm text-stone-600">AI assistants (voice commands), automatic captions (YouTube).</p>
+                            <h5 class="font-medium text-stone-800">Reconocimiento de Voz/Sonido</h5>
+                            <p class="text-sm text-stone-600">Asistentes de IA (comandos de voz), subtítulos automáticos (YouTube).</p>
                         </li>
                         <li class="p-3 bg-stone-50 rounded-md">
-                            <h5 class="font-medium text-stone-800">Sentiment Analysis</h5>
-                            <p class="text-sm text-stone-600">Interprets mood from text; used to gauge customer response (e.g., KFC).</p>
+                            <h5 class="font-medium text-stone-800">Análisis de Sentimiento</h5>
+                            <p class="text-sm text-stone-600">Interpreta el estado de ánimo a partir de texto; utilizado para medir la respuesta del cliente (ej. KFC).</p>
                         </li>
                     </ul>
                 </div>
@@ -340,79 +340,79 @@
         </section>
 
         <section id="page-history" class="content-section px-4">
-            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">The Evolution & History of AI</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">La Evolución e Historia de la IA</h2>
             <p class="text-lg text-stone-700 mb-6">
-                The journey of AI is not a straight line, but a series of cycles. This section explores the "summers" of intense optimism and funding, the "winters" of skepticism, and the key milestones that have defined the field, along with competing visions for its future.
+                El viaje de la IA no es una línea recta, sino una serie de ciclos. Esta sección explora los "veranos" de intenso optimismo y financiación, los "inviernos" de escepticismo y los hitos clave que han definido el campo, junto con visiones contrapuestas para su futuro.
             </p>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-2">
-                    <h3 class="text-xl font-semibold text-stone-900 mb-4">An Interactive Timeline</h3>
+                    <h3 class="text-xl font-semibold text-stone-900 mb-4">Una Línea de Tiempo Interactiva</h3>
                     <div class="relative">
                         <div class="timeline-item">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <time class="text-sm font-semibold text-sky-600">1956</time>
-                                <h4 class="font-medium text-stone-800 mt-1">Dartmouth Conference</h4>
-                                <p class="text-sm text-stone-600 mt-1">Research into AI officially begins, seeking to unify cybernetics, automation, and information processing.</p>
+                                <h4 class="font-medium text-stone-800 mt-1">Conferencia de Dartmouth</h4>
+                                <p class="text-sm text-stone-600 mt-1">Comienza oficialmente la investigación en IA, buscando unificar la cibernética, la automatización y el procesamiento de información.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
                                 <time class="text-sm font-semibold text-sky-600">1974–1980</time>
-                                <h4 class="font-medium text-stone-800 mt-1">First AI Winter</h4>
-                                <p class="text-sm text-stone-600 mt-1">Researchers fail to deliver on promises, leading to a significant reduction in funding and interest.</p>
+                                <h4 class="font-medium text-stone-800 mt-1">Primer Invierno de la IA</h4>
+                                <p class="text-sm text-stone-600 mt-1">Los investigadores no cumplen las promesas, lo que lleva a una reducción significativa de la financiación y el interés.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
-                                <time class="text-sm font-semibold text-sky-600">1980s</time>
-                                <h4 class="font-medium text-stone-800 mt-1">Expert Systems Boom</h4>
-                                <p class="text-sm text-stone-600 mt-1">A second boom is driven by expert systems (like Dendral, 1965) focusing on solving specific problems.</p>
+                                <time class="text-sm font-semibold text-sky-600">Década de 1980</time>
+                                <h4 class="font-medium text-stone-800 mt-1">Auge de los Sistemas Expertos</h4>
+                                <p class="text-sm text-stone-600 mt-1">Un segundo auge es impulsado por los sistemas expertos (como Dendral, 1965) que se centran en resolver problemas específicos.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
-                                <time class="text-sm font-semibold text-sky-600">Late 80s / Early 90s</time>
-                                <h4 class="font-medium text-stone-800 mt-1">Second AI Winter</h4>
-                                <p class="text-sm text-stone-600 mt-1">The collapse of the expert systems market leads to another period of reduced investment.</p>
+                                <time class="text-sm font-semibold text-sky-600">Finales de los 80 / Principios de los 90</time>
+                                <h4 class="font-medium text-stone-800 mt-1">Segundo Invierno de la IA</h4>
+                                <p class="text-sm text-stone-600 mt-1">El colapso del mercado de sistemas expertos conduce a otro período de inversión reducida.</p>
                             </div>
                         </div>
                         <div class="timeline-item">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
-                                <time class="text-sm font-semibold text-sky-600">Late 2000s–Present</time>
-                                <h4 class="font-medium text-stone-800 mt-1">Current AI Summer</h4>
-                                <p class="text-sm text-stone-600 mt-1">Triggered by the convergence of massive data availability (Big Data) and advances in processing power (GPUs).</p>
+                                <time class="text-sm font-semibold text-sky-600">Finales de los 2000–Presente</time>
+                                <h4 class="font-medium text-stone-800 mt-1">Verano Actual de la IA</h4>
+                                <p class="text-sm text-stone-600 mt-1">Desencadenado por la convergencia de la disponibilidad de datos masivos (Big Data) y los avances en la potencia de procesamiento (GPUs).</p>
                             </div>
                         </div>
                         <div class="timeline-item border-l-transparent">
                             <div class="timeline-marker"></div>
                             <div class="timeline-content">
-                                <time class="text-sm font-semibold text-sky-600">Key Milestones</time>
+                                <time class="text-sm font-semibold text-sky-600">Hitos Clave</time>
                                 <ul class="list-disc list-inside text-sm text-stone-600 mt-2 space-y-1">
-                                    <li><strong class="text-stone-700">1997:</strong> IBM's Deep Blue beats chess champion Garry Kasparov.</li>
-                                    <li><strong class="text-stone-700">2011:</strong> IBM's Watson wins *Jeopardy!*</li>
-                                    <li><strong class="text-stone-700">2016:</strong> Google's AlphaGo beats the world Go champion.</li>
-                                    <li><strong class="text-stone-700">2020:</strong> Microsoft introduces Turing Natural Language Generation.</li>
+                                    <li><strong class="text-stone-700">1997:</strong> Deep Blue de IBM vence al campeón de ajedrez Garry Kasparov.</li>
+                                    <li><strong class="text-stone-700">2011:</strong> Watson de IBM gana el programa de televisión *Jeopardy!*</li>
+                                    <li><strong class="text-stone-700">2016:</strong> AlphaGo de Google vence al campeón mundial de Go.</li>
+                                    <li><strong class="text-stone-700">2020:</strong> Microsoft presenta Turing Natural Language Generation.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="lg:col-span-1">
-                    <h3 class="text-xl font-semibold text-stone-900 mb-4">Future Perspectives</h3>
+                    <h3 class="text-xl font-semibold text-stone-900 mb-4">Perspectivas Futuras</h3>
                     <div class="space-y-4">
                         <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                            <h4 class="font-semibold text-lg text-stone-800">Singularity</h4>
-                            <p class="text-sm text-stone-600 mt-2">Popularized by Vernor Vinge (1993) and Ray Kurzweil (2005), this concept predicts a future where AI growth becomes irreversible and surpasses human intelligence, potentially by 2045.</p>
+                            <h4 class="font-semibold text-lg text-stone-800">Singularidad</h4>
+                            <p class="text-sm text-stone-600 mt-2">Popularizado por Vernor Vinge (1993) y Ray Kurzweil (2005), este concepto predice un futuro donde el crecimiento de la IA se vuelve irreversible y supera la inteligencia humana, potencialmente para 2045.</p>
                         </div>
                         <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200">
-                            <h4 class="font-semibold text-lg text-stone-800">Multiplicity</h4>
-                            <p class="text-sm text-stone-600 mt-2">Proposed by roboticist Ken Goldberg, this concept suggests a future where AI and robots are developed to work alongside humans, augmenting their capabilities rather than replacing them entirely.</p>
+                            <h4 class="font-semibold text-lg text-stone-800">Multiplicidad</h4>
+                            <p class="text-sm text-stone-600 mt-2">Propuesto por el roboticista Ken Goldberg, este concepto sugiere un futuro donde la IA y los robots se desarrollan para trabajar junto a los humanos, aumentando sus capacidades en lugar de reemplazarlos por completo.</p>
                         </div>
                     </div>
                 </div>
@@ -420,91 +420,91 @@
         </section>
 
         <section id="page-dilemmas" class="content-section px-4">
-            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Critical Dilemmas in AI</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-stone-900 mb-4">Dilemas Críticos en la IA</h2>
             <p class="text-lg text-stone-700 mb-6">
-                The rapid development and integration of AI have created significant ethical, social, and legal dilemmas. This section explores the most pressing challenges, from inherent bias in data to the profound impact on the global workforce.
+                El rápido desarrollo y la integración de la IA han creado importantes dilemas éticos, sociales y legales. Esta sección explora los desafíos más apremiantes, desde el sesgo inherente en los datos hasta el profundo impacto en la fuerza laboral global.
             </p>
 
             <div class="flex flex-wrap gap-2 mb-6">
-                <button class="sub-nav-link active" data-dilemma="bias">Fairness & Bias</button>
-                <button class="sub-nav-link" data-dilemma="accountability">Accountability</button>
-                <button class="sub-nav-link" data-dilemma="transparency">Transparency</button>
-                <button class="sub-nav-link" data-dilemma="footprint">Carbon Footprint</button>
-                <button class="sub-nav-link" data-dilemma="laws">Laws & Governance</button>
-                <button class="sub-nav-link" data-dilemma="automation">Automation & Jobs</button>
+                <button class="sub-nav-link active" data-dilemma="bias">Imparcialidad y Sesgo</button>
+                <button class="sub-nav-link" data-dilemma="accountability">Responsabilidad</button>
+                <button class="sub-nav-link" data-dilemma="transparency">Transparencia</button>
+                <button class="sub-nav-link" data-dilemma="footprint">Huella de Carbono</button>
+                <button class="sub-nav-link" data-dilemma="laws">Leyes y Gobernanza</button>
+                <button class="sub-nav-link" data-dilemma="automation">Automatización y Empleo</button>
             </div>
 
             <div id="dilemma-content" class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 min-h-[400px]">
                 
                 <div class="dilemma-panel active" data-dilemma="bias">
-                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Fairness and Bias</h3>
-                    <p class="text-stone-600 mb-4">AI systems learn from the data they are trained on. If this data is biased or unrepresentative of the whole population, the AI's results will reflect and potentially amplify those biases.</p>
+                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Imparcialidad y Sesgo</h3>
+                    <p class="text-stone-600 mb-4">Los sistemas de IA aprenden de los datos con los que son entrenados. Si estos datos están sesgados o no son representativos de toda la población, los resultados de la IA reflejarán y potencialmente amplificarán esos sesgos.</p>
                     <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                        <h4 class="font-semibold text-stone-800">Example: Twitter's Cropping Algorithm</h4>
-                        <p class="text-sm text-stone-600 mt-1">In May 2021, a study found that Twitter's photo cropping algorithm was biased, more reliably selecting lighter-skinned faces over those with darker skin. Twitter subsequently stopped using the tool.</p>
+                        <h4 class="font-semibold text-stone-800">Ejemplo: Algoritmo de Recorte de Twitter</h4>
+                        <p class="text-sm text-stone-600 mt-1">En mayo de 2021, un estudio descubrió que el algoritmo de recorte de fotos de Twitter estaba sesgado, seleccionando rostros de piel más clara con mayor fiabilidad que los de piel más oscura. Twitter posteriormente dejó de utilizar la herramienta.</p>
                     </div>
                 </div>
 
                 <div class="dilemma-panel hidden" data-dilemma="accountability">
-                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Accountability in Design and Use</h3>
-                    <p class="text-stone-600 mb-4">Determining who is responsible when an AI system makes a mistake or causes harm is a complex challenge. Accountability can be distributed among designers, developers, and end-users.</p>
+                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Responsabilidad en Diseño y Uso</h3>
+                    <p class="text-stone-600 mb-4">Determinar quién es responsable cuando un sistema de IA comete un error o causa daño es un desafío complejo. La responsabilidad puede distribuirse entre diseñadores, desarrolladores y usuarios finales.</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                            <h4 class="font-semibold text-stone-800">Example 1: Microsoft's Tay Chatbot</h4>
-                            <p class="text-sm text-stone-600 mt-1">Tay was taken offline after 16 hours because users intentionally provoked it with inappropriate discussions, which the AI learned from and repeated.</p>
+                            <h4 class="font-semibold text-stone-800">Ejemplo 1: Chatbot Tay de Microsoft</h4>
+                            <p class="text-sm text-stone-600 mt-1">Tay fue desactivado después de 16 horas porque los usuarios lo provocaron intencionalmente con discusiones inapropiadas, de las cuales la IA aprendió y repitió.</p>
                         </div>
                         <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                            <h4 class="font-semibold text-stone-800">Example 2: Uber's Autonomous Vehicles</h4>
-                            <p class="text-sm text-stone-600 mt-1">In 2016, Uber's autonomous vehicles ran red lights. Uber initially blamed the human safety driver, highlighting the difficulty in assigning fault.</p>
+                            <h4 class="font-semibold text-stone-800">Ejemplo 2: Vehículos Autónomos de Uber</h4>
+                            <p class="text-sm text-stone-600 mt-1">En 2016, se informó que los vehículos autónomos de Uber se saltaron seis semáforos en rojo durante las pruebas. Inicialmente, Uber culpó al conductor humano presente por seguridad, destacando la dificultad para asignar la culpa.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="dilemma-panel hidden" data-dilemma="transparency">
-                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Transparency in Design and Use</h3>
-                    <p class="text-stone-600 mb-4">Many advanced AI systems, particularly deep learning models, operate as <strong class="text-stone-900">"black boxes."</strong> It's difficult for even their developers to understand or explain their decision-making processes, which erodes trust.</p>
+                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Transparencia en Diseño y Uso</h3>
+                    <p class="text-stone-600 mb-4">Muchos sistemas avanzados de IA, particularmente aquellos que utilizan aprendizaje profundo, operan como <strong class="text-stone-900">"cajas negras."</strong> Es difícil incluso para sus desarrolladores comprender o explicar sus procesos de toma de decisiones, lo que erosiona la confianza.</p>
                     <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                        <h4 class="font-semibold text-stone-800">Example: Apple's Credit Card</h4>
-                        <p class="text-sm text-stone-600 mt-1">In 2019, US regulators investigated Apple's credit card service over claims it offered different credit limits to men and women. The cause was unclear, speculated to be either biased data or a "black box" algorithm.</p>
+                        <h4 class="font-semibold text-stone-800">Ejemplo: Tarjeta de Crédito de Apple</h4>
+                        <p class="text-sm text-stone-600 mt-1">En 2019, los reguladores de EE. UU. investigaron el servicio de tarjeta de crédito de Apple por denuncias de que ofrecía diferentes límites de crédito a hombres y mujeres. La causa no estaba clara, pero se especuló que se debía a datos sesgados o a la falta de transparencia en el algoritmo.</p>
                     </div>
                 </div>
 
                 <div class="dilemma-panel hidden" data-dilemma="footprint">
-                    <h3 class="text-2xl font-bold text-sky-700 mb-3">AI's Carbon Footprint</h3>
-                    <p class="text-stone-600 mb-4">Training complex AI models is computationally intensive and consumes vast amounts of energy. Factors include the algorithm, training time, processor type, and the data center's energy source.</p>
+                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Huella de Carbono de la IA</h3>
+                    <p class="text-stone-600 mb-4">Entrenar modelos complejos de IA es computacionalmente intensivo y consume enormes cantidades de energía. Los factores incluyen el algoritmo, el tiempo de entrenamiento, el tipo de procesador y la fuente de energía del centro de datos.</p>
                     <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                        <h4 class="font-semibold text-stone-800">UMass Amherst Study</h4>
-                        <p class="text-sm text-stone-600 mt-1">A study estimated that the carbon emissions from training a single large neural network can be equivalent to that of a car over its entire lifetime.</p>
+                        <h4 class="font-semibold text-stone-800">Estudio de UMass Amherst</h4>
+                        <p class="text-sm text-stone-600 mt-1">Un estudio estimó que las emisiones de carbono del entrenamiento de una sola red neuronal grande pueden ser equivalentes a las de un automóvil durante toda su vida útil.</p>
                     </div>
                 </div>
 
                 <div class="dilemma-panel hidden" data-dilemma="laws">
-                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Underdeveloped Laws, Regulations, and Governance</h3>
-                    <p class="text-stone-600 mb-4">The rapid pace of AI adoption has outstripped the ability of legal and regulatory frameworks to keep up. A Cognilytica report found many countries are delaying AI legislation to better understand its uses.</p>
+                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Leyes, Regulaciones y Gobernanza Subdesarrolladas</h3>
+                    <p class="text-stone-600 mb-4">El rápido ritmo de adopción de la IA ha superado la capacidad de los marcos legales y regulatorios para mantenerse al día. Un informe de Cognilytica encontró que muchos países están retrasando la legislación sobre IA para comprender mejor sus casos de uso.</p>
                     <ul class="list-disc list-inside space-y-2 text-stone-600 text-sm">
-                        <li><strong class="text-stone-700">Autonomous Vehicles:</strong> At the time of the report, only 24 countries had laws permitting their operation.</li>
-                        <li><strong class="text-stone-700">Lethal Autonomous Weapons (LAWS):</strong> Only Belgium had passed legislation, with just 13 other countries in discussions.</li>
-                        <li><strong class="text-stone-700">Data Rights:</strong> The need for large training datasets raises significant data protection and user rights concerns.</li>
+                        <li><strong class="text-stone-700">Vehículos Autónomos:</strong> En el momento del informe, solo 24 países tenían leyes que permitían su operación.</li>
+                        <li><strong class="text-stone-700">Sistemas de Armas Autónomas Letales (LAWS):</strong> Solo Bélgica había aprobado legislación al respecto, con solo 13 países más involucrados en discusiones.</li>
+                        <li><strong class="text-stone-700">Derechos de Datos:</strong> La necesidad de grandes conjuntos de datos de entrenamiento plantea importantes preocupaciones sobre la protección de datos y los derechos del usuario.</li>
                     </ul>
                 </div>
 
                 <div class="dilemma-panel hidden" data-dilemma="automation">
-                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Automation and Displacement of Humans</h3>
-                    <p class="text-stone-600 mb-4">A major societal concern is the impact of AI-driven automation on employment. Roles involving repetitive or high-precision tasks are vulnerable, but new roles are also being created.</p>
+                    <h3 class="text-2xl font-bold text-sky-700 mb-3">Automatización y Desplazamiento Humano</h3>
+                    <p class="text-stone-600 mb-4">Una preocupación social importante es el impacto de la automatización impulsada por la IA en el empleo. El Foro Económico Mundial predice que la IA podría reemplazar 75 millones de puestos de trabajo para 2025, mientras que simultáneamente crearía 133 millones de nuevos puestos.</p>
                     <div class="mb-4">
-                        <h4 class="font-semibold text-stone-800 text-center mb-2">WEF Projection: Jobs by 2025 (in millions)</h4>
+                        <h4 class="font-semibold text-stone-800 text-center mb-2">Proyección del FEM: Empleos para 2025 (en millones)</h4>
                         <div class="chart-container">
                             <canvas id="jobChart"></canvas>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                            <h4 class="font-semibold text-stone-800">Jobs at Risk</h4>
-                            <p class="text-sm text-stone-600 mt-1">Manufacturing (2.7M robots in 2020), food prep, construction, driving. Lower-qualified workers are most vulnerable.</p>
+                            <h4 class="font-semibold text-stone-800">Empleos en Riesgo</h4>
+                            <p class="text-sm text-stone-600 mt-1">Roles que implican tareas repetitivas o de alta precisión. La fabricación (2.7M de robots en 2020), la preparación de alimentos, la construcción y la conducción también se están automatizando.</p>
                         </div>
                         <div class="bg-stone-50 p-4 rounded-lg border border-stone-200">
-                            <h4 class="font-semibold text-stone-800">Jobs in Demand</h4>
-                            <p class="text-sm text-stone-600 mt-1">Sectors less susceptible to automation, such as health, education, and roles requiring human care and understanding.</p>
+                            <h4 class="font-semibold text-stone-800">Empleos en Demanda</h4>
+                            <p class="text-sm text-stone-600 mt-1">Las oportunidades se desplazarán a sectores menos susceptibles a la automatización, como la salud, la educación y roles que requieren cuidado y comprensión humana.</p>
                         </div>
                     </div>
                 </div>
@@ -516,7 +516,7 @@
 
     <footer class="bg-white border-t border-stone-200 mt-12">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm text-stone-500">
-            <p>Interactive AI Landscape Report | Data from Briefing Document</p>
+            <p>Informe Interactivo del Panorama de la IA | Datos del Documento Informativo</p>
         </div>
     </footer>
 
@@ -593,12 +593,12 @@
             const mlTypePanels = document.querySelectorAll('.ml-type-panel');
             mlTypeTabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    const type = tab.dataset.mlType;
+                    const type = tab.dataset.ml-type;
                     mlTypeTabs.forEach(t => t.classList.remove('active'));
                     tab.classList.add('active');
                     mlTypePanels.forEach(panel => {
-                        panel.classList.toggle('hidden', panel.dataset.mlType !== type);
-                        panel.classList.toggle('active', panel.dataset.mlType === type);
+                        panel.classList.toggle('hidden', panel.dataset.ml-type !== type);
+                        panel.classList.toggle('active', panel.dataset.ml-type === type);
                     });
                 });
             });
@@ -641,9 +641,9 @@
                 jobChartInstance = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Jobs at Risk', 'New Jobs Created'],
+                        labels: ['Empleos en Riesgo', 'Nuevos Empleos Creados'],
                         datasets: [{
-                            label: 'Jobs (in millions) by 2025',
+                            label: 'Empleos (en millones) para 2025',
                             data: [75, 133],
                             backgroundColor: [
                                 'rgba(239, 68, 68, 0.6)',
@@ -666,7 +666,7 @@
                             tooltip: {
                                 callbacks: {
                                     label: function(context) {
-                                        return `${context.label}: ${context.raw} million`;
+                                        return `${context.label}: ${context.raw} millones`;
                                     }
                                 }
                             }
@@ -676,7 +676,7 @@
                                 beginAtZero: true,
                                 title: {
                                     display: true,
-                                    text: 'Jobs (in millions)'
+                                    text: 'Empleos (en millones)'
                                 }
                             },
                             x: {
